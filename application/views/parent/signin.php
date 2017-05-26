@@ -1,22 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-    <?php include "sign_head.php" ?>
-
+    <?php include "head.php" ?>
     <body>
-        <?php include "sign_header.php" ?>
+        
+        <header class="header-front">
+            <nav class="navbar navbar-default navbar-front">
+                <div class="container">
+                    <div class="col-xs-12">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#">
+                                <img src="<?php echo URL_IMG?>logo-salam.inc.png" width="130" height="73" alt="Logo Salam Inc." class="img-responsive">
+                            </a>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="<?php echo base_url()?>signup">Sign Up</a></li>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </div>
+                </div><!-- /.container-fluid -->
+            </nav>
+        </header>
          
         <section class="content-front">
             <div class="container">
                 <div class="col-md-7">
-                    <img src="<?php echo URL_IMG?>/thumbnails/go-pray-sign-in.png" width="653" height="449" alt="Go Pray Sign In Thumbnails" class="img-responsive">
+                    <img src="<?php echo URL_IMG?>thumbnails/go-pray-sign-in.png" width="653" height="449" alt="Go Pray Sign In Thumbnails" class="img-responsive">
                 </div>
                 <div class="col-md-5 form-sign-in">
                     <ul class="nav nav-pills front-tabs">
+                        <li role="presentation">
+                            <a href="#">Sign Up</a>
+                        </li>
                         <li role="presentation" class="active">
                             <a href="#">Sign In</a>
                         </li>
                     </ul>
-                    <form name="signup" id="signup" method="" action="sinkronisasi.html" class="front-form">
+                    <form name="signup" id="signup" method="" action="" class="front-form">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
@@ -41,11 +70,7 @@
         </section>
         
         <footer></footer>
-        <?php include "sign_foot.php" ?>
+        <?php include "foot.php" ?>
         
-        <script type="text/javascript">
-            // put this page's specific js here
-        </script>
-
     </body>
 </html>

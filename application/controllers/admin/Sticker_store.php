@@ -1,8 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Nilai_ibadah extends CI_Controller {
+class Sticker_store extends CI_Controller {
     
-    private $page_title = "Nilai Ibadah";
+    private $page_title = "Sticker Store";
 
 	public function __construct() {
         parent::__construct();
@@ -10,7 +10,7 @@ class Nilai_ibadah extends CI_Controller {
 
     public function index() {
     	$data['page_title'] = $this->page_title;
-        $this->load->view('parent/nilai_ibadah', $data);
+        $this->load->view('admin/sticker_store', $data);
     }
 
 }

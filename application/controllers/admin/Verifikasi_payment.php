@@ -10,7 +10,7 @@ class Verifikasi_payment extends CI_Controller {
 
     public function index() {
     	$data['page_title'] = $this->page_title;
-        $this->load->view('parent/verifikasi_payment', $data);
+        $this->load->view('admin/verifikasi_payment', $data);
     }
 
 }

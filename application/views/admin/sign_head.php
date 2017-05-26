@@ -16,7 +16,7 @@
     <link rel="apple-touch-icon" sizes="130x128" href="<?php echo URL_IMG?>icons/logo-go-pray.ico">
     
     <!-- Stylesheets -->
-    <link rel="stylesheet" type="text/css" href="<?php echo URL_CSS?>/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo URL_CSS?>/style.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URL_CSS?>bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URL_CSS?>style_admin.css">
     
 </head> 

@@ -89,8 +89,8 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 defined('BASE_URL') OR define('BASE_URL', "http://localhost/github/gopray_parent/");
 
 defined('URL_UPLOAD') OR define('URL_UPLOAD', BASE_URL.'uploads/'); // base path untuk upload
-defined('URL_PLUGIN') OR define('URL_PLUGIN', BASE_URL.'assets/plugins'); // base path untuk plugin
-defined('URL_FONT') OR define('URL_FONT', BASE_URL.'assets/fonts'); // base path untuk font
-defined('URL_IMG') OR define('URL_IMG', BASE_URL.'assets/images'); // base path untuk image
-defined('URL_CSS') OR define('URL_CSS', BASE_URL.'assets/css'); // base path untuk css
-defined('URL_JS') OR define('URL_JS', BASE_URL.'assets/js'); // base path untuk js
+defined('URL_PLUGIN') OR define('URL_PLUGIN', BASE_URL.'assets/plugins/'); // base path untuk plugin
+defined('URL_FONT') OR define('URL_FONT', BASE_URL.'assets/fonts/'); // base path untuk font
+defined('URL_IMG') OR define('URL_IMG', BASE_URL.'assets/images/'); // base path untuk image
+defined('URL_CSS') OR define('URL_CSS', BASE_URL.'assets/css/'); // base path untuk css
+defined('URL_JS') OR define('URL_JS', BASE_URL.'assets/js/'); // base path untuk js

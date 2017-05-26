@@ -1,8 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Sinkronisasi_jadwal extends CI_Controller {
+class Donate extends CI_Controller {
     
-    private $page_title = "Sinkronisasi Jadwal";
+    private $page_title = "Donate";
 
 	public function __construct() {
         parent::__construct();
@@ -10,7 +10,7 @@ class Sinkronisasi_jadwal extends CI_Controller {
 
     public function index() {
     	$data['page_title'] = $this->page_title;
-        $this->load->view('parent/sinkronisasi_jadwal', $data);
+        $this->load->view('parent/donate', $data);
     }
 
 }

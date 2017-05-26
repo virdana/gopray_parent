@@ -1,8 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Manajemen_user extends CI_Controller {
+class Sticker extends CI_Controller {
     
-    private $page_title = "Manajemen User";
+    private $page_title = "Sticker";
 
 	public function __construct() {
         parent::__construct();
@@ -10,7 +10,7 @@ class Manajemen_user extends CI_Controller {
 
     public function index() {
     	$data['page_title'] = $this->page_title;
-        $this->load->view('parent/manajemen_user', $data);
+        $this->load->view('parent/sticker', $data);
     }
 
 }
