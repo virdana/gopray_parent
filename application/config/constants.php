@@ -94,3 +94,7 @@ defined('URL_FONT') OR define('URL_FONT', BASE_URL.'assets/fonts/'); // base pat
 defined('URL_IMG') OR define('URL_IMG', BASE_URL.'assets/images/'); // base path untuk image
 defined('URL_CSS') OR define('URL_CSS', BASE_URL.'assets/css/'); // base path untuk css
 defined('URL_JS') OR define('URL_JS', BASE_URL.'assets/js/'); // base path untuk js
+
+// Define a 32-byte (64 character) hexadecimal encryption key
+// Note: The same encryption key used to encrypt the data must be used to decrypt the data
+defined('WARP_ENC_KEY') OR define('WARP_ENC_KEY', '4b89d59900105a3438d2ddf8df8fcbdce3b231edfea172019e579e214ad79c6e');

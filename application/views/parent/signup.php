@@ -42,24 +42,33 @@
                             <a href="#">Sign In</a>
                         </li>
                     </ul>
-                    <form name="signup" id="signup" method="" action="" class="front-form">
+                    <form name="formSignup" id="formSignup" method="POST" action="<?php echo base_url()?>signup/do_signup" class="front-form">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Email</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                            <label for="nama">Nama Lengkap</label>
+                            <input type="nama" name="nama" id="nama" class="form-control" placeholder="Nama Lengkap" required="required">
                         </div>
-                        
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" class="form-control" placeholder="Email" required="required">
                         </div>
-                        
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Re-Enter Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            <label for="no_hp">Nomor HP</label>
+                            <input type="number" name="no_hp" id="no_hp" class="form-control" placeholder="Nomor HP">
                         </div>
-                        
+                        <div class="form-group">
+                            <label for="kerabat">Kerabat</label>
+                            <input type="text" name="kerabat" id="kerabat" class="form-control" placeholder="Kerabat">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Password" required="required">
+                        </div>
+                        <div class="form-group">
+                            <label for="re_password">Re-Enter Password</label>
+                            <input type="password" name="re_password" id="re_password" class="form-control" placeholder="Password" required="required">
+                        </div>
                         <div class="form-btn">
-                            <input type="submit" class="btn btn-green" name="submitsignup" value="Sign Up">
+                            <button type="submit" class="btn btn-green" name="btnSubmit" id="btnSubmit">Sign Up</button>
                         </div>
                         
                     </form>
@@ -72,6 +81,48 @@
         
         <footer></footer>
         <?php include "foot.php" ?>
+
+        <script type="text/javascript">
+            // Form submit handler
+            $('#formSignup').on('submit', function(e) {
+                e.preventDefault();
+                doSignup();
+            });
+
+            function doSignup() {
+                var defaultBtn = $('#btnSubmit').html();
+                var password = $('#password').val() || '';
+                var rePassword = $('#re_password').val() || '';
+
+                if((password != '' && password != '') && (password === rePassword)) {
+                    $.ajax({
+                        url: $('#formSignup').attr('action'),
+                        type: 'post',
+                        data: $('#formSignup').serialize(),
+                        dataType: 'json',
+                        beforeSend: function() {
+                            $('#btnSubmit').html('Memproses...');
+                            $('#btnSubmit').prop('disabled', true);
+                        },
+                        success: function(data, status) {
+                            console.log(status);
+                            $('#btnSubmit').html(defaultBtn);
+                            $('#btnSubmit').prop('disabled', false);
+                        },
+                        error: function(jqXHR, status, errorThrown) {
+                            console.log(status);
+                            $('#btnSubmit').html(defaultBtn);
+                            $('#btnSubmit').prop('disabled', false);
+                        }
+                    });
+                }
+                else {
+                    alert('Konfirmasi password tidak valid');
+                    //alert
+                }
+
+            }
+        </script>
         
     </body>
 </html>

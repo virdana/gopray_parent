@@ -45,23 +45,20 @@
                             <a href="#">Sign In</a>
                         </li>
                     </ul>
-                    <form name="signup" id="signup" method="" action="" class="front-form">
+                    <form name="formSignin" id="formSignin" method="POST" action="<?php echo base_url()?>signin/do_signin" class="front-form">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Email</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Email" required="required">
                         </div>
-                        
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Password" required="required">
                         </div>
-                        
                         <div class="form-group">
                             <a href="#" class="form-link">Forgot Password ?</a>
                         </div>
-                        
                         <div class="form-btn">
-                            <input type="submit" class="btn btn-green" name="submitsignup" value="Sign In">
+                            <button type="submit" class="btn btn-green" name="btnSubmit" id="btnSubmit">Sign In</button>
                         </div>
                         
                     </form>
@@ -71,6 +68,43 @@
         
         <footer></footer>
         <?php include "foot.php" ?>
+
+        <script type="text/javascript">
+            // Form submit handler
+            $('#formSignin').on('submit', function(e) {
+                e.preventDefault();
+                doSignin();
+            });
+
+            function doSignin() {
+                var defaultBtn = $('#btnSubmit').html();
+                var email = $('#email').val() || '';
+                var password = $('#password').val() || '';
+
+                $.ajax({
+                    url: $('#formSignin').attr('action'),
+                    type: 'post',
+                    data: {
+                        'email': email, 'password': password
+                    },
+                    dataType: 'json',
+                    beforeSend: function() {
+                        $('#btnSubmit').html('Memproses...');
+                        $('#btnSubmit').prop('disabled', true);
+                    },
+                    success: function(data, status) {
+                        console.log(status);
+                        $('#btnSubmit').html(defaultBtn);
+                        $('#btnSubmit').prop('disabled', false);
+                    },
+                    error: function(jqXHR, status, errorThrown) {
+                        console.log(status);
+                        $('#btnSubmit').html(defaultBtn);
+                        $('#btnSubmit').prop('disabled', false);
+                    }
+                })
+            }
+        </script>
         
     </body>
 </html>
