@@ -1641,3 +1641,9 @@ ul{
         float: none !important;
     }
 }
+
+/* PLUGINS */
+/* Plugin JQueryConfirm */
+.jconfirm .jconfirm-box{
+    font-family: "Avenir Roman", Fallback, sans-serif;
+}

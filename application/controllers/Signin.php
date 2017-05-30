@@ -12,12 +12,8 @@ class Signin extends CI_Controller {
     }
 
     public function do_signin() {
-    	$response = array('status' => FALSE);
+    	$response = array('status' => 0);
     	$params = $this->input->post();
-    	$string = "woow";
-    	$enc_string = warpmc_encrypt($string, WARP_ENC_KEY);
-    	$dec_string = warpmc_decrypt($enc_string, WARP_ENC_KEY);
-		$enctest = array('enc' => $enc_string, 'dec' => $dec_string);
 
     	if(!empty($params['email']) && !empty($params['password'])) {
     		//send data to API here
@@ -40,19 +36,33 @@ class Signin extends CI_Controller {
     		$json_arr = json_decode($json_obj);
     		
     		//setting token session
-    		$response = $json_arr;
-    		// $this->start_token_session($json_arr->access_token);
+    		$this->start_token_session($json_arr->access_token);
+    		$response = array('status' => 1, 'message' => 'Anda berhasil Sign in!');
     	}
     	else {
-    		$response = array('message' => 'Email atau Password anda salah');
+    		$response = array('status' => 0, 'message' => 'Email atau Password anda salah');
     	}
-    	echo json_encode($enctest);
+    	echo json_encode($response);
     }
 
     private function start_token_session($token='') {
+    	$result = FALSE;
     	if($token!='') {
     		//saving user's token
+    		$enc_token = warpmc_encrypt($token, WARP_ENC_KEY);
+    		$session_data = array('access_token' => $enc_token);
+    		$set_session = $this->session->set_userdata($session_data);
+    		$result = TRUE;
     	}
+    	return $result;
+    }
+
+    private function enctest(){
+    	$string = "woow";
+    	$enc_string = warpmc_encrypt($string, WARP_ENC_KEY);
+    	$dec_string = warpmc_decrypt($enc_string, WARP_ENC_KEY);
+		$enctest = array('enc' => $enc_string, 'dec' => $dec_string);
+		echo json_encode($enctest);
     }
 
 }

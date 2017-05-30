@@ -2,7 +2,7 @@
 <html lang="en">
     <?php include "head.php" ?>
     <body>
-        
+
         <header class="header-front">
             <nav class="navbar navbar-default navbar-front">
                 <div class="container">
@@ -104,10 +104,13 @@
                             $('#btnSubmit').html('Memproses...');
                             $('#btnSubmit').prop('disabled', true);
                         },
-                        success: function(data, status) {
+                        success: function(response, status) {
                             console.log(status);
                             $('#btnSubmit').html(defaultBtn);
                             $('#btnSubmit').prop('disabled', false);
+                            if(response.status == 1) {
+                                window.location.replace("<?php echo base_url()?>timeline");
+                            }
                         },
                         error: function(jqXHR, status, errorThrown) {
                             console.log(status);
@@ -117,7 +120,23 @@
                     });
                 }
                 else {
-                    alert('Konfirmasi password tidak valid');
+                    $('#re_password').tooltip({
+                        'trigger': 'focus', 
+                        'placement': 'right',
+                        'title': 'Konfirmasi Password tidak valid!'
+                    });
+                    $("#re_password").focus();
+
+                    
+                    // alert('Konfirmasi password tidak valid');
+                    /*$.alert({
+                        theme: 'material',
+                        type: 'orange',
+                        icon: 'fa fa-warning',
+                        backgroundDismiss: true, // this will just close the modal
+                        title: 'Perhatian!',
+                        content: 'Konfirmasi password tidak valid!'
+                    });*/
                     //alert
                 }
 

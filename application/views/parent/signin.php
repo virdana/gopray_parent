@@ -92,10 +92,13 @@
                         $('#btnSubmit').html('Memproses...');
                         $('#btnSubmit').prop('disabled', true);
                     },
-                    success: function(data, status) {
+                    success: function(response, status) {
                         console.log(status);
                         $('#btnSubmit').html(defaultBtn);
                         $('#btnSubmit').prop('disabled', false);
+                        if(response.status == 1) {
+                            window.location.replace("<?php echo base_url()?>timeline");
+                        }
                     },
                     error: function(jqXHR, status, errorThrown) {
                         console.log(status);

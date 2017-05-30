@@ -18,8 +18,8 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation"><a href="#timeline" aria-controls="timeline" role="tab" data-toggle="tab">Timeline</a></li>
-                        <li class="active" role="presentation"><a href="#summary" aria-controls="summary" role="tab" data-toggle="tab">Summary</a></li>
+                        <li class="active" role="presentation"><a href="#timeline" aria-controls="timeline" role="tab" data-toggle="tab">Timeline</a></li>
+                        <li role="presentation"><a href="#summary" aria-controls="summary" role="tab" data-toggle="tab">Summary</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="navbar-notif">
@@ -142,7 +142,7 @@
             <?php include "sidebar.php" ?>
             
             <div class="tab-content">
-                <section class="admin-content tab-pane fade" role="tabpanel" id="timeline">
+                <section class="admin-content tab-pane fade in active" role="tabpanel" id="timeline">
                     <div class="row">
                         <div class="col-sm-4 col-md-3 detail-rightmenu visible-xs">
                             <p class="title">Keluarga</p>
@@ -190,108 +190,26 @@
                         </div>
                         
                         <div class="col-sm-8 col-md-9 detail-content">
-                            
-                            <div class="panel panel-default panel-timeline">
-                                <div class="media media-timeline">
-                                    <div class="media-left">
-                                        <a href="#">
-                                            <img class="media-object" src="<?php echo URL_IMG?>photos/user-2.png" width="40" height="41" alt="Go Pray User Photo Profile">
-                                        </a>
+                            <?php if(isset($list_timeline)) {
+                                foreach ($list_timeline as $timeline) {
+                                ?>
+                                <div class="panel panel-default panel-timeline">
+                                    <div class="media media-timeline">
+                                        <div class="media-left">
+                                            <a href="#">
+                                                <img class="media-object" src="<?php echo $timeline['foto']?>" width="40" height="41" alt="Go Pray User Photo Profile">
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h4 class="media-heading"><?php echo $timeline['info']?></h4>
+                                            <p class="media-time"><?php echo $timeline['time']?></p>
+                                        </div>
                                     </div>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">Veti Vera melakukan ibadah Solat Subuh dengan Putri Fernanda di Masjid Al Amin</h4>
-                                        <p class="media-time">09.10 a.m</p>
-                                    </div>
-                                </div>
-                                <p class="timeline-detail">
-                                    The last time you had a cheeseburger was too long ago. Try not to drool when you think about the slightly 
-                                    charred, medium-rare meat nestled between soft brioche, cradled in crisp iceberg lettuce and flavour 
-                                    amplifying condiments. Why are you still reading this- go get a cheeseburger.
-                                </p>
-                            </div>
-                            
-                            <div class="panel panel-default panel-timeline">
-                                <div class="media media-timeline">
-                                    <div class="media-left">
-                                        <a href="#">
-                                            <img class="media-object" src="<?php echo URL_IMG?>photos/user-2.png" width="40" height="41" alt="Go Pray User Photo Profile">
-                                        </a>
-                                    </div>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">Veti Vera melakukan ibadah Baca Al-Quran dengan Putri Fernanda di Masjid Al Amin</h4>
-                                        <p class="media-time">09.10 a.m</p>
-                                    </div>
-                                </div>
-                                <p class="timeline-detail">
-                                    The last time you had a cheeseburger was too long ago. Try not to drool when you think about the slightly 
-                                    charred, medium-rare meat nestled between soft brioche, cradled in crisp iceberg lettuce and flavour 
-                                    amplifying condiments. Why are you still reading this- go get a cheeseburger.
-                                </p>
-                            </div>
-                            
-                            <div class="panel panel-default panel-timeline">
-                                <div class="media media-timeline">
-                                    <div class="media-left">
-                                        <a href="#">
-                                            <img class="media-object" src="<?php echo URL_IMG?>photos/user-3.png" width="40" height="41" alt="Go Pray User Photo Profile">
-                                        </a>
-                                    </div>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">Putri Feranda</h4>
-                                        <p class="media-time">09.10 a.m</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="owl-carousel owl-theme sticker-list">
-                                    <div class="item">
-                                        <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="88" height="88" alt="Sticker" class="img-responsive">
-                                    </div>
-                                    <div class="item">
-                                        <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="88" height="88" alt="Sticker" class="img-responsive">
-                                    </div>
-                                    <div class="item">
-                                        <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="88" height="88" alt="Sticker" class="img-responsive">
-                                    </div>
-                                    <div class="item">
-                                        <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="88" height="88" alt="Sticker" class="img-responsive">
-                                    </div>
-                                    <div class="item">
-                                        <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="88" height="88" alt="Sticker" class="img-responsive">
-                                    </div>
-                                    <div class="item">
-                                        <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="88" height="88" alt="Sticker" class="img-responsive">
-                                    </div>
-                                    <div class="item">
-                                        <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="88" height="88" alt="Sticker" class="img-responsive">
-                                    </div>
-                                </div>
-                                
-                                <p class="timeline-detail">
-                                    The last time you had a cheeseburger was too long ago. Try not to drool when you think about the slightly 
-                                    charred, medium-rare meat nestled between soft brioche, cradled in crisp iceberg lettuce and flavour 
-                                    amplifying condiments. Why are you still reading this- go get a cheeseburger.
-                                </p>
-                            </div>
-                            
-                            <div class="panel panel-default panel-timeline">
-                                <div class="media media-timeline">
-                                    <div class="media-left">
-                                        <a href="#">
-                                            <img class="media-object" src="<?php echo URL_IMG?>photos/user-3.png" width="40" height="41" alt="Go Pray User Photo Profile">
-                                        </a>
-                                    </div>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">Putri Feranda melakukan ibadah Baca Al-Quran dengan Putri Fernanda di Masjid Al Amin</h4>
-                                        <p class="media-time">09.10 a.m</p>
-                                    </div>
-                                </div>
-                                <p class="timeline-detail">
-                                    The last time you had a cheeseburger was too long ago. Try not to drool when you think about the slightly 
-                                    charred, medium-rare meat nestled between soft brioche, cradled in crisp iceberg lettuce and flavour 
-                                    amplifying condiments. Why are you still reading this- go get a cheeseburger.
-                                </p>
-                            </div>
-                            
+                                    <!-- <p class="timeline-detail"> Detail </p> -->
+                                </div>        
+                                    <?php
+                                }
+                            } ?>
                         </div>
                         
                         <div class="col-sm-4 col-md-3 detail-rightmenu hidden-xs">
@@ -342,7 +260,7 @@
                     </div>
                 </section>
 
-                <section class="admin-content tab-pane fade in active" role="tabpanel" id="summary">
+                <section class="admin-content tab-pane fade" role="tabpanel" id="summary">
                     <div class="row">
                         <div class="col-xs-12 detail-content summary-content">
                            

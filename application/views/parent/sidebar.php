@@ -16,7 +16,8 @@
             <li><a href="<?php echo base_url()?>sticker"><span class="fa fa-circle"></span> Sticker</a></li>
             <li><a href="<?php echo base_url()?>donate"><span class="fa fa-circle"></span> Donate</a></li>
             <li><a href="<?php echo base_url()?>collection"><span class="fa fa-circle"></span> Collection</a></li>
-            <li class="admin-logout"><a href="<?php echo base_url()?>logout"><span class="fa fa-circle"></span> Logout</a></li>
+            <!-- <?php echo base_url()?>signout/do_signout -->
+            <li class="admin-logout"><a href="<?php echo base_url()?>signout/do_signout" onclick="doSignout(event);"><span class="fa fa-circle"></span> Logout</a></li>
         </ul>
     </div>
 </div>

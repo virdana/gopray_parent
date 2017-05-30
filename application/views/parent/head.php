@@ -20,6 +20,13 @@
     <link rel="stylesheet" type="text/css" href="<?php echo URL_PLUGIN?>font-awesome.4.7.0/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="<?php echo URL_PLUGIN?>owlcarousel.2.2.0/assets/owl.carousel.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo URL_PLUGIN?>owlcarousel.2.2.0/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URL_PLUGIN?>jquery-confirm.3.2.3/css/jquery-confirm.css">
     <link rel="stylesheet" type="text/css" href="<?php echo URL_CSS?>style_parent.css">
     
 </head>
+<?php 
+/*TESTER*/
+    echo "<pre>";
+    print_r($_SESSION);
+    echo "</pre>";
+?>
