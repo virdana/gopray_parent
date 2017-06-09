@@ -23,8 +23,7 @@ class Timeline extends CI_Controller {
     		//fetching data timeline
     		$url = 'http://103.27.207.92:88/users/Parent/timeline?access_token='.$active_token;
     		$parameters = array();
-    		$json_obj = $this->get_data_parent($active_token, $url, $parameters, 'GET');
-    		$json_arr = json_decode($json_obj);
+    		$json_arr = $this->get_data_parent($active_token, $url, $parameters, 'GET');
 
     		$data_timeline = $json_arr->data;
     		$list_timeline = array();
@@ -33,7 +32,10 @@ class Timeline extends CI_Controller {
     			$info .= $item->nama_user;
     			if($item->nama_ibadah != 'nothing') {
     				if($item->nama_ibadah == 'Sedekah') {
-    					$info .= ' melakukan ibadah '.$item->nama_ibadah.' Sebesar Rp '.$item->nominal;
+    					$info .= ' melakukan ibadah '.$item->nama_ibadah;
+    					if($item->nominal != 'nothing') {
+    						$info .= ' Sebesar Rp '.$item->nominal;
+    					}
     				} else {
     					$info .= ' melakukan ibadah '.$item->nama_ibadah;
     					if($item->bersama != 'nothing'){
@@ -53,7 +55,9 @@ class Timeline extends CI_Controller {
     					'time' => date('d-M-y', strtotime($item->tanggal)).' '.date('H:i A', strtotime($item->jam))
     				);
     		}
+    		
     		$data['list_timeline'] = $list_timeline;
+    		$data['data_parent'] = $this->get_parent_info($active_token);
     		
     		/*echo "<pre>";
     		echo $json_obj;
@@ -68,9 +72,9 @@ class Timeline extends CI_Controller {
         $this->load->view('parent/timeline', $data);
     }
 
-    private function get_data_parent($token='', $url='', $parameters='', $method='GET') {
+    private function get_data_parent($active_token='', $url='', $parameters='', $method='GET') {
     	$result = FALSE;
-    	if(!empty($token) && !empty($url)) {
+    	if(!empty($active_token) && !empty($url)) {
     		$post_data = http_build_query($parameters);
     		$options = array(
     					'http' => array (
@@ -81,9 +85,26 @@ class Timeline extends CI_Controller {
     				);
     		$context = stream_context_create($options);
     		$json_obj = file_get_contents($url, FALSE, $context);
-    		$result = $json_obj;
+    		$json_arr = json_decode($json_obj);
+    		
+    		$result = $json_arr;
     	}
 		return $result;
+    }
+
+    private function get_parent_info($active_token='') {
+    	$result = FALSE;
+    	if(!empty($active_token)) {
+	    	//fetching parent info
+			$url = 'http://103.27.207.92:88/users/Parent?access_token='.$active_token;
+			$parameters = array();
+			$json_arr = $this->get_data_parent($active_token, $url, $parameters, 'GET');
+
+			if(isset($json_arr->data)) {
+				$result = $json_arr->data[0];
+			}
+    	}
+    	return $result;
     }
 
 }

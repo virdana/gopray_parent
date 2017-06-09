@@ -178,12 +178,43 @@ ul{
     width: auto;
     height: auto;
     min-height: 40px;
+    color: #363636;
+    font-family: "Avenir Roman", Fallback, sans-serif;
+    font-size: 16.0px;
+    font-style: normal;
+    font-stretch: normal;
+    font-weight: 400;
 }
 .form-control:focus {
     border-color: #e0e1ed;
     outline: 0;
     -webkit-box-shadow: none;
     box-shadow: none;
+}
+.form-control::-moz-placeholder{
+    font-family: "Avenir Roman", Fallback, sans-serif;
+    opacity: 0.5;
+    color: #363636;
+}
+.form-control:-moz-placeholder{
+    font-family: "Avenir Roman", Fallback, sans-serif;
+    opacity: 0.5;
+    color: #363636;
+}
+.form-control:-ms-input-placeholder{
+    font-family: "Avenir Roman", Fallback, sans-serif;
+    opacity: 0.5;
+    color: #363636;
+}
+.form-control:focus:-ms-input-placeholder{
+    font-family: "Avenir Roman", Fallback, sans-serif;
+    opacity: 0.5;
+    color: #363636;
+}
+.form-control::-webkit-input-placeholder{
+    font-family: "Avenir Roman", Fallback, sans-serif;
+    opacity: 0.5;
+    color: #363636;
 }
 
 /* --- Navigation Bar --- */
@@ -281,7 +312,7 @@ ul{
     margin-bottom: 20px;
 }
 .front-form label{
-    color: #363636;
+    color: #5B5B5B;
     font-family: "Avenir Roman", Fallback, sans-serif;
     font-size: 18.0px;
     font-style: normal;
@@ -1126,14 +1157,6 @@ ul{
 .circle-form .circle-body{
     padding-left: 10px;
 }
-.circle-body .form-control{
-    color: #363636;
-    font-family: "Avenir Roman", Fallback, sans-serif;
-    font-size: 16.0px;
-    font-style: normal;
-    font-stretch: normal;
-    font-weight: 400;
-}
 .circle-body .circle-for{
     border-bottom: 1px solid #e0e1ed;
 }
@@ -1152,31 +1175,6 @@ ul{
     border: none;
     padding: 0;
 }
-.circle-message .form-control::-moz-placeholder{
-    font-family: "Avenir Roman", Fallback, sans-serif;
-    opacity: 0.5;
-    color: #363636;
-}
-.circle-message .form-control:-moz-placeholder{
-    font-family: "Avenir Roman", Fallback, sans-serif;
-    opacity: 0.5;
-    color: #363636;
-}
-.circle-message .form-control:-ms-input-placeholder{
-    font-family: "Avenir Roman", Fallback, sans-serif;
-    opacity: 0.5;
-    color: #363636;
-}
-.circle-message .form-control:focus:-ms-input-placeholder{
-    font-family: "Avenir Roman", Fallback, sans-serif;
-    opacity: 0.5;
-    color: #363636;
-}
-.circle-message .form-control::-webkit-input-placeholder{
-    font-family: "Avenir Roman", Fallback, sans-serif;
-    opacity: 0.5;
-    color: #363636;
-}
 .circle-form .circle-button{
     border-top: 1px solid #e0e1ed;
     padding: 10px 20px;
@@ -1186,6 +1184,83 @@ ul{
 }
 .circle-timeline .media-timeline .media-heading{
     min-height: inherit;
+}
+
+
+/* -- Change Profile -- */
+.changeprofile{
+    padding-top: 20px;
+}
+.changeprofile .form-group{
+    margin-bottom: 20px;
+}
+.changeprofile label{
+    color: #464646;
+    font-family: "Avenir Medium", Fallback, sans-serif;
+    font-size: 18.0px;
+    font-style: normal;
+    font-stretch: normal;
+    font-weight: 500;
+}
+.changeprofile .form-control{
+    height: 45px;
+    width: 100%;
+}
+.btn-changeprofile{
+    text-align: right;
+}
+.btn-changeprofile .btn{
+    min-width: 120px;
+}
+.btn-changeprofile .btn-white{
+    margin-right: 15px;
+}
+.changeprofile .profile-container{
+    width: 225px;
+    height: 225px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 100%;
+    margin-left: 30px;
+}
+.changeprofile .upload-button {
+    padding: 4px;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: block;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+}
+.upload-button .upload-text{
+    position: absolute;
+    width: 141px;
+    height: 30px;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    color: #fff;
+    font-family: "Avenir Heavy", Fallback, sans-serif;
+    font-size: 18.0px;
+    font-style: normal;
+    font-stretch: normal;
+    font-weight: 400;
+}
+.upload-button .upload-text span{
+    margin-right: 10px;
+}
+.changeprofile .file-upload {
+    display: none;
 }
 
 
@@ -1519,6 +1594,16 @@ ul{
         margin-top: 20px;
     }
     
+    /* --- Change Profile --- */
+    .changeprofile .profile-container{
+        margin-bottom: 25px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .btn-changeprofile{
+        text-align: center;
+    }
+    
 }
 
 @media screen and (max-width: 479px){
@@ -1605,7 +1690,6 @@ ul{
     .circle-button input[type=submit]{
         float: none !important;
     }
-    
 }
 
 @media screen and (max-width: 419px){
@@ -1617,6 +1701,16 @@ ul{
         display: block;
         width: auto;
     }
+    
+    /* --- Pray Circle --- */
+    .btn-changeprofile .btn-white{
+        margin-right: 0;
+    }
+    .btn-changeprofile .btn{
+        display: block;
+        margin: 10px auto;
+    }
+    
 }
 @media screen and (max-width: 399px){
     .panel-collection{

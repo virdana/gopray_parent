@@ -3,11 +3,17 @@
 <div class="admin-leftmenu left">
     <div class="user-profile">
         <div class="user-image">
-            <img src="<?php echo URL_IMG?>photos/bitmap.png" width="149" height="149" alt="Go Pray Parent Profile" class="img-circle">
-            <a href="#" class="edit-profile"></a>
+        <?php 
+            $avatar_url = URL_IMG."photos/def-avatar.png";
+            if(isset($data_parent->profile_picture)) {
+                if($data_parent->profile_picture != 'null') { $avatar_url = $data_parent->profile_picture; }    
+            }
+        ?>
+            <img src="<?php echo $avatar_url?>" width="149" height="149" alt="Go Pray Parent Profile" class="img-circle">
+            <a href="<?php echo base_url()?>update_profil" class="edit-profile" data-toggle="tooltip" data-placement="bottom" title="Ubah Profil"></a>
         </div>
-        <p class="name">Allie Carson</p>
-        <p class="status">Bunda</p>
+        <p class="name"><?php echo isset($data_parent->nama) ? $data_parent->nama : 'No name'?></p>
+        <p class="status"><?php echo isset($data_parent->kerabat) ? $data_parent->kerabat : ''?></p>
     </div>
     <div class="list-menu">
         <ul class="nav nav-pills nav-stacked">
