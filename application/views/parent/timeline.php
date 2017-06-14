@@ -147,53 +147,33 @@
                         <div class="col-sm-4 col-md-3 detail-rightmenu visible-xs">
                             <p class="title">Keluarga</p>
                             
-                            <div class="media media-family">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="<?php echo URL_IMG?>photos/bitmap.png" width="60" height="60" alt="Go Pray Parent Profile">
-                                    </a>
+                            <?php if(isset($data_kerabat)) { 
+                                $foto_url = "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png";
+                                foreach ($data_kerabat as $key => $kerabat) { 
+                                    if(isset($kerabat->foto_profil)) {
+                                        if(!empty($kerabat->foto_profil)) { $foto_url = $kerabat->foto_profil; } 
+                                    } 
+                                ?>
+                                <div class="media media-family">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img class="media-object" src="<?php echo $foto_url?>" width="60" height="60" alt="Go Pray Parent Profile">
+                                        </a>
+                                    </div>
+                                    <div class="media-body media-middle">
+                                        <h4 class="media-heading"><?php echo $kerabat->nama?></h4>
+                                        <p class="status"><?php echo $kerabat->kerabat?></p>
+                                    </div>
                                 </div>
-                                <div class="media-body media-middle">
-                                    <h4 class="media-heading">Allie Carson</h4>
-                                    <p class="status">Bunda</p>
-                                </div>
-                            </div>
-                            
-                            <div class="media media-family">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="<?php echo URL_IMG?>photos/user-4.png" width="60" height="60" alt="Go Pray Parent Profile">
-                                    </a>
-                                </div>
-                                <div class="media-body media-middle">
-                                    <h4 class="media-heading">Kenneth Santiago</h4>
-                                    <p class="status">Bapak</p>
-                                </div>
-                            </div>
-                            
-                            <div class="media media-family">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="<?php echo URL_IMG?>photos/user-5.png" width="60" height="60" alt="Go Pray Parent Profile">
-                                    </a>
-                                </div>
-                                <div class="media-body media-middle">
-                                    <h4 class="media-heading">Chester Schultz</h4>
-                                    <p class="status">Om</p>
-                                </div>
-                            </div>
-                            
-                            <div class="right-btn">
-                                <a href="#" class="btn btn-green"><span class="fa fa-plus"></span> Add Family</a>
-                            </div>
-                            
+                                <?php } ?>
+                            <?php } ?>                            
                         </div>
                         
                         <div class="col-sm-8 col-md-9 detail-content">
                             <?php if(isset($list_timeline)) {
                                 foreach ($list_timeline as $timeline) {
                                 ?>
-                                <div class="panel panel-default panel-timeline">
+                                <div class="panel panel-default panel-timeline lazy">
                                     <div class="media media-timeline">
                                         <div class="media-left">
                                             <a href="#">
@@ -215,48 +195,27 @@
                         <div class="col-sm-4 col-md-3 detail-rightmenu hidden-xs">
                             <p class="title">Keluarga</p>
                             
-                            <div class="media media-family">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="<?php echo URL_IMG?>photos/bitmap.png" width="60" height="60" alt="Go Pray Parent Profile">
-                                    </a>
+                            <?php if(isset($data_kerabat)) { 
+                                $foto_url = "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png";
+                                foreach ($data_kerabat as $key => $kerabat) { 
+                                    if(isset($kerabat->foto_profil)) {
+                                        if(!empty($kerabat->foto_profil)) { $foto_url = $kerabat->foto_profil; } 
+                                    } 
+                                ?>
+                                <div class="media media-family">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img class="media-object" src="<?php echo $foto_url?>" width="60" height="60" alt="Go Pray Parent Profile">
+                                        </a>
+                                    </div>
+                                    <div class="media-body media-middle">
+                                        <h4 class="media-heading"><?php echo $kerabat->nama?></h4>
+                                        <p class="status"><?php echo $kerabat->kerabat?></p>
+                                    </div>
                                 </div>
-                                <div class="media-body media-middle">
-                                    <h4 class="media-heading">Allie Carson</h4>
-                                    <p class="status">Bunda</p>
-                                </div>
-                            </div>
-                            
-                            <div class="media media-family">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="<?php echo URL_IMG?>photos/user-4.png" width="60" height="60" alt="Go Pray Parent Profile">
-                                    </a>
-                                </div>
-                                <div class="media-body media-middle">
-                                    <h4 class="media-heading">Kenneth Santiago</h4>
-                                    <p class="status">Bapak</p>
-                                </div>
-                            </div>
-                            
-                            <div class="media media-family">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="<?php echo URL_IMG?>photos/user-5.png" width="60" height="60" alt="Go Pray Parent Profile">
-                                    </a>
-                                </div>
-                                <div class="media-body media-middle">
-                                    <h4 class="media-heading">Chester Schultz</h4>
-                                    <p class="status">Om</p>
-                                </div>
-                            </div>
-                            
-                            <div class="right-btn">
-                                <a href="#" class="btn btn-green"><span class="fa fa-plus"></span> Add Family</a>
-                            </div>
-                            
+                                <?php } ?>
+                            <?php } ?>
                         </div>
-                        
                     </div>
                 </section>
 
@@ -267,61 +226,57 @@
                             <!-- User Dropdown -->
                             <div class="summary-btn">
                                 <div class="btn-group user-menu">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-user"></i> Putri Feranda <span class="fa fa-angle-down"></span>
+                                    <button type="button" id="btnSummary" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-user"></i> <span id="btnSummaryText">Pilih Akun</span> <span class="fa fa-angle-down"></span>
                                     </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Action</a></li>
-                                        <li><a href="#">Another action</a></li>
-                                        <li><a href="#">Something else here</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="#">Separated link</a></li>
+                                    <ul id="selectSummary" class="dropdown-menu">
+                                        <?php foreach($data_summary as $summary) { ?>
+                                        <li>
+                                            <a href="javascript:void(0)" data-value="<?php echo $summary['id_user']?>" onclick="showSummary(this);"> 
+                                            <?php echo $summary['nama_user']?></a>
+                                        </li>
+                                        <?php } ?>
                                     </ul>
                                 </div>
                                 <a href="#" class="btn btn-green btn-download"><span class="glyphicon glyphicon-save"></span> Download</a>
                             </div>
                             
-                            <div class="row summary-list">
-                                <div class="col-md-4 col-lg-3">
-                                    <div class="panel panel-default">
-                                        <p class="summary-pray">Mengaji</p>
-                                        <div class="summary-point">
-                                            <h1>1530</h1>
-                                            <p>Point</p>
+                            <?php if(isset($data_summary)) { ?>
+                                <?php foreach($data_summary as $key => $value) { ?>
+                                    <div id="summaryList-<?php echo $value['id_user']?>" class="row summary-list" style="display: none;">
+                                    
+                                    <?php foreach($value['aktivitas'] as $aktivitas => $point) { ?>
+                                        <div class="col-md-4 col-lg-3">
+                                            <div class="panel panel-default">
+                                                <p class="summary-pray"><?php echo $aktivitas?></p>
+                                                <div class="summary-point">
+                                                    <h1><?php echo $point?></h1>
+                                                    <p>Point</p>
+                                                </div>
+                                            </div>
                                         </div>
+                                    <?php } ?>
+                                    
                                     </div>
-                                </div>
-                                <div class="col-md-4 col-lg-3">
-                                    <div class="panel panel-default">
-                                        <p class="summary-pray">Sholat Sunnah</p>
-                                        <div class="summary-point">
-                                            <h1>230</h1>
-                                            <p>Point</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-lg-3">
-                                    <div class="panel panel-default">
-                                        <p class="summary-pray">Puasa Sunnah</p>
-                                        <div class="summary-point">
-                                            <h1>1530</h1>
-                                            <p>Point</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-lg-3">
-                                    <div class="panel panel-default">
-                                        <p class="summary-pray">Sedekah</p>
-                                        <div class="summary-point">
-                                            <h1>230</h1>
-                                            <p>Point</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                <?php } ?>
+                            <?php } ?>
                             
                             <div class="row summary-graph">
-                                <div class="col-md-6 col-lg-6">
+                                <div class="col-md-12 col-lg-12">
+                                    <div class="panel panel-default" style="vertical-align:middle">
+                                        <p class="summary-pray">Grafik Ibadah</p>
+
+                                        <div id="chartLoading" class="text-center" style="min-width: 250px; height: 400px; max-width: 100%; margin: 0 auto; display: none;">
+                                            <span style="display: inline-block; height: 100%; vertical-align: middle;"></span>
+                                            <img src="<?php echo URL_IMG?>loading.svg" alt='Loading...' style='vertical-align: middle;'>
+                                        </div>
+                                        
+                                        <div id="chartContainer" style="min-width: 250px; height: 400px; max-width: 100%; margin: 0 auto"></div>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <!-- <div class="col-md-6 col-lg-6">
                                     <div class="panel panel-default">
                                         <p class="summary-pray">Sholat</p>
                                         <div id="chartSholat" class="graph-content" style="height: 325px; width: 100%;"></div>
@@ -334,19 +289,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6 col-lg-6">
-                                    <div class="panel panel-default">
-                                        <p class="summary-pray">Puasa Ramadhan</p>
-                                        <div id="chartPuasa" class="graph-content" style="height: 325px; width: 100%;"></div>
-                                        <div class="graph-legend">
-                                            <ul>
-                                                <li><span class="graph-indicator graph-1"></span> 23 Puasa</li>
-                                                <li><span class="graph-indicator graph-4"></span> 7 Tidak Puasa</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> -->
                             </div>
                             
                         </div>
@@ -362,7 +305,99 @@
 
         <script type="text/javascript">
             // put this page's specific js here
+            function showSummary(elem) {
+                var id = $(elem).data('value') || '';
+                var nama = $(elem).html();
+
+                if(id != '') {
+                    $('[id^="summaryList-"]').hide();
+                    $('#summaryList-'+id).fadeIn();
+                    $('#btnSummaryText').html(nama);
+                    setChart(id);
+                } else {
+                    console.log('ShowSummary id not found!');
+                }
+            }
+
+            function setChart(id='') {
+                if(id != '') {
+                    $.ajax({
+                        url: "<?php echo base_url()?>" +'timeline/get_chart_data/' +id,
+                        type: 'GET',
+                        data: '',
+                        dataType: 'json',
+                        beforeSend: function() {
+                            $('#chartContainer').hide();
+                            $('#chartLoading').fadeIn();
+                        },
+                        success: function(response, status) {
+                            console.log(response.data);
+                            loadCharts(response.info, response.data);
+                            $('#chartLoading').hide();
+                            $('#chartContainer').fadeIn();
+                        },
+                        error: function(jqXhr, status, errorThrown) {
+                            console.log(status);   
+                            $('#chartLoading').hide();
+                            $('#chartContainer').fadeIn();
+                        }
+                    });
+                }
+            }
+
+            function loadCharts(info, jsonData='') {
+                if(jsonData != '') {
+                        // Build the chart
+                    Highcharts.chart('chartContainer', {
+                        chart: {
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false,
+                            type: 'pie'
+                        },
+                        title: {
+                            text: 'Grafik Ibadah '+info.nama_user
+                                    +' <br>'+info.bulan_daftar + ' - ' + '<?php echo date('F Y')?>'
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: false
+                                },
+                                showInLegend: true,
+                                size: 250
+                            }
+                        },
+                        series: [{
+                            name: 'Brands',
+                            colorByPoint: true,
+                            data: jsonData
+                            /*data: [{
+                                name: 'Microsoft Internet Explorer',
+                                y: 56.33
+                            }, {
+                                name: 'Chrome',
+                                y: 24.03,
+                                sliced: true,
+                                selected: true
+                            }]*/
+                        }]
+                    });
+                }
+            }
+
             $(document).ready(function() {
+                //initializing lazyload for timeline
+                
+
+                //triggering summary at first launch
+                $('#selectSummary li:first-child a').trigger('click');
+                
                 var action = 1;
 
                 $("[data-toggle=offcanvas]").on("click", viewSomething);
@@ -387,61 +422,6 @@
                     }
                 }
             });
-
-            window.onload = function () {
-                CanvasJS.addColorSet("sholatWajib",
-                [//colorSet Array
-
-                "#687BF4",
-                "#FDD761",
-                "#2FDF93",
-                "#FB5495"               
-                ]);
-                
-                CanvasJS.addColorSet("puasaRamadhan",
-                [//colorSet Array
-
-                "#687BF4",
-                "#FB5495"               
-                ]);
-                
-                var chart = new CanvasJS.Chart("chartSholat",
-                {
-                    colorSet: "sholatWajib",
-                    data: [
-                    {       
-                        type: "pie",
-                        toolTipContent: "#percent %",
-                        dataPoints: [
-                            { y: 120 },
-                            { y: 15 },
-                            { y: 15 },
-                            { y: 30 }
-                        ]
-                    }
-                    ]
-                });
-                
-                var chart2 = new CanvasJS.Chart("chartPuasa",
-                {
-                    colorSet: "puasaRamadhan",      
-                    data: [
-                    {       
-                        type: "pie",
-                        showInLegend: true,
-                        toolTipContent: "#percent %",
-                        legendText: "{indexLabel}",
-                        dataPoints: [
-                            {  y: 23 },
-                            {  y: 7 }
-                        ]
-                    }
-                    ]
-                });
-                
-                chart.render();
-                chart2.render();
-            }
         </script>
         
     </body>

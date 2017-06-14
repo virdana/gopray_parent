@@ -85,9 +85,15 @@ defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automat
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 
-//Additional Constants
-defined('BASE_URL') OR define('BASE_URL', "http://localhost/github/gopray_parent/");
+//Root URL
+$root = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http")."://".$_SERVER['HTTP_HOST'];
+$root .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
 
+//Additional Constants
+defined('BASE_URL') OR define('BASE_URL', $root);
+defined('REST_URL') OR define('REST_URL', "http://103.27.207.92:88/");
+
+defined('PATH_UPLOAD') OR define('PATH_UPLOAD', FCPATH.'uploads/'); // base path untuk upload
 defined('URL_UPLOAD') OR define('URL_UPLOAD', BASE_URL.'uploads/'); // base path untuk upload
 defined('URL_PLUGIN') OR define('URL_PLUGIN', BASE_URL.'assets/plugins/'); // base path untuk plugin
 defined('URL_FONT') OR define('URL_FONT', BASE_URL.'assets/fonts/'); // base path untuk font

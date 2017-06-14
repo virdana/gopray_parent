@@ -146,46 +146,26 @@
                         <div class="col-sm-4 col-md-3 detail-rightmenu visible-xs">
                             <p class="title">Keluarga</p>
                             
-                            <div class="media media-family">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="<?php echo URL_IMG?>photos/bitmap.png" width="60" height="60" alt="Go Pray Parent Profile">
-                                    </a>
+                            <?php if(isset($data_kerabat)) { 
+                                $foto_url = "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png";
+                                foreach ($data_kerabat as $key => $kerabat) { 
+                                    if(isset($kerabat->foto_profil)) {
+                                        if(!empty($kerabat->foto_profil)) { $foto_url = $kerabat->foto_profil; } 
+                                    } 
+                                ?>
+                                <div class="media media-family">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img class="media-object" src="<?php echo $foto_url?>" width="60" height="60" alt="Go Pray Parent Profile">
+                                        </a>
+                                    </div>
+                                    <div class="media-body media-middle">
+                                        <h4 class="media-heading"><?php echo $kerabat->nama?></h4>
+                                        <p class="status"><?php echo $kerabat->kerabat?></p>
+                                    </div>
                                 </div>
-                                <div class="media-body media-middle">
-                                    <h4 class="media-heading">Allie Carson</h4>
-                                    <p class="status">Bunda</p>
-                                </div>
-                            </div>
-                            
-                            <div class="media media-family">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="<?php echo URL_IMG?>photos/user-4.png" width="60" height="60" alt="Go Pray Parent Profile">
-                                    </a>
-                                </div>
-                                <div class="media-body media-middle">
-                                    <h4 class="media-heading">Kenneth Santiago</h4>
-                                    <p class="status">Bapak</p>
-                                </div>
-                            </div>
-                            
-                            <div class="media media-family">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="<?php echo URL_IMG?>photos/user-5.png" width="60" height="60" alt="Go Pray Parent Profile">
-                                    </a>
-                                </div>
-                                <div class="media-body media-middle">
-                                    <h4 class="media-heading">Chester Schultz</h4>
-                                    <p class="status">Om</p>
-                                </div>
-                            </div>
-                            
-                            <div class="right-btn">
-                                <a href="#" class="btn btn-green"><span class="fa fa-plus"></span> Add Family</a>
-                            </div>
-                            
+                                <?php } ?>
+                            <?php } ?>                            
                         </div>
                         
                         <div class="col-sm-8 col-md-9 detail-content">
@@ -194,13 +174,20 @@
                                     <div class="media media-timeline">
                                         <div class="media-left">
                                             <a href="#">
-                                                <img class="media-object" src="<?php echo URL_IMG?>photos/bitmap.png" width="50" height="50" alt="Go Pray User Photo Profile">
+                                                <?php $profile_picture = !empty($data_parent->profile_picture) ? $data_parent->profile_picture : 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png'?>
+                                                <img class="media-object" src="<?php echo $profile_picture?>" width="50" height="50" alt="Go Pray User Photo Profile">
                                             </a>
                                         </div>
                                         <div class="media-body circle-body">
                                             <div class="form-group circle-for">
                                                 <span class="pointer">Untuk </span>
-                                                <input type="text" class="form-control" placeholder="">
+                                                <input type="text" class="form-control awesomplete" list="circleList" placeholder="">
+                                                <datalist id="circleList">
+                                                    <option>tidak ada</option>
+                                                    <?php foreach($data_kerabat as $key => $kerabat) { ?>
+                                                    <option><?php echo $kerabat->email?></option>
+                                                    <?php } ?>
+                                                </datalist>
                                             </div>
                                             <div class="form-group circle-message">
                                                 <textarea class="form-control" placeholder="Tulis pesan disini"></textarea>
@@ -276,46 +263,26 @@
                         <div class="col-sm-4 col-md-3 detail-rightmenu hidden-xs">
                             <p class="title">Keluarga</p>
                             
-                            <div class="media media-family">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="<?php echo URL_IMG?>photos/bitmap.png" width="60" height="60" alt="Go Pray Parent Profile">
-                                    </a>
+                            <?php if(isset($data_kerabat)) { 
+                                $foto_url = "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png";
+                                foreach ($data_kerabat as $key => $kerabat) { 
+                                    if(isset($kerabat->foto_profil)) {
+                                        if(!empty($kerabat->foto_profil)) { $foto_url = $kerabat->foto_profil; } 
+                                    } 
+                                ?>
+                                <div class="media media-family">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img class="media-object" src="<?php echo $foto_url?>" width="60" height="60" alt="Go Pray Parent Profile">
+                                        </a>
+                                    </div>
+                                    <div class="media-body media-middle">
+                                        <h4 class="media-heading"><?php echo $kerabat->nama?></h4>
+                                        <p class="status"><?php echo $kerabat->kerabat?></p>
+                                    </div>
                                 </div>
-                                <div class="media-body media-middle">
-                                    <h4 class="media-heading">Allie Carson</h4>
-                                    <p class="status">Bunda</p>
-                                </div>
-                            </div>
-                            
-                            <div class="media media-family">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="<?php echo URL_IMG?>photos/user-4.png" width="60" height="60" alt="Go Pray Parent Profile">
-                                    </a>
-                                </div>
-                                <div class="media-body media-middle">
-                                    <h4 class="media-heading">Kenneth Santiago</h4>
-                                    <p class="status">Bapak</p>
-                                </div>
-                            </div>
-                            
-                            <div class="media media-family">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="<?php echo URL_IMG?>photos/user-5.png" width="60" height="60" alt="Go Pray Parent Profile">
-                                    </a>
-                                </div>
-                                <div class="media-body media-middle">
-                                    <h4 class="media-heading">Chester Schultz</h4>
-                                    <p class="status">Om</p>
-                                </div>
-                            </div>
-                            
-                            <div class="right-btn">
-                                <a href="#" class="btn btn-green"><span class="fa fa-plus"></span> Add Family</a>
-                            </div>
-                            
+                                <?php } ?>
+                            <?php } ?>
                         </div>
                         
                     </div>

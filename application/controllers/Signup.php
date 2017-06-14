@@ -20,7 +20,7 @@ class Signup extends CI_Controller {
 
 			if($password_ok) {
 	    		//send data to API here
-	    		$url = 'http://103.27.207.92:88/users/Parent/daftar';
+	    		$url = REST_URL.'users/Parent/daftar';
 	    		$parameters = array(
 	    					'nama' => $params['nama'],
 	    					'kerabat' => $params['kerabat'],
@@ -41,14 +41,23 @@ class Signup extends CI_Controller {
 	    		$json_obj = file_get_contents($url, FALSE, $context);
 	    		$json_arr = json_decode($json_obj);
 	    		
-	    		$response = $json_arr;
+	    		
+	    		if($json_arr->return == TRUE) {
+	    			$response = array('status' => 1, 'message' => 'Akun berhasil didaftarkan');	
+	    		} else {
+	    			$response = array('status' => 0, 'message' => ucfirst($json_arr->error_message));	
+	    		}
+	    		/*echo "<pre>";
+	    		print_r($json_arr);
+	    		echo "</pre>";
+	    		die();*/
 			}
 			else {
-    			$response = array('message' => 'Konfirmasi Password anda tidak valid');
+    			$response = array('status' => 0, 'message' => 'Konfirmasi Password anda tidak valid');
 			}
     	}
     	else {
-    		$response = array('message' => 'Email atau Password anda tidak valid');
+    		$response = array('status' => 0, 'message' => 'Email atau Password anda tidak valid');
     	}
     	echo json_encode($response);
     }

@@ -12,7 +12,7 @@
             <img src="<?php echo $avatar_url?>" width="149" height="149" alt="Go Pray Parent Profile" class="img-circle">
             <a href="<?php echo base_url()?>update_profil" class="edit-profile" data-toggle="tooltip" data-placement="bottom" title="Ubah Profil"></a>
         </div>
-        <p class="name"><?php echo isset($data_parent->nama) ? $data_parent->nama : 'No name'?></p>
+        <p class="name"><?php echo isset($data_parent->nama) ? $data_parent->nama : 'John Doe'?></p>
         <p class="status"><?php echo isset($data_parent->kerabat) ? $data_parent->kerabat : ''?></p>
     </div>
     <div class="list-menu">

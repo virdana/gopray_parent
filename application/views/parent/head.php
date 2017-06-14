@@ -11,9 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <!-- Icon -->
-    <link rel="shortcut icon" href="../images/icons/logo-go-pray.ico">
-    <link rel="icon" sizes="130x128" href="../images/icons/logo-go-pray.ico">
-    <link rel="apple-touch-icon" sizes="130x128" href="../images/icons/logo-go-pray.ico">
+    <link rel="shortcut icon" href="<?php echo URL_IMG?>icons/logo-go-pray.ico">
+    <link rel="icon" sizes="130x128" href="<?php echo URL_IMG?>icons/logo-go-pray.ico">
+    <link rel="apple-touch-icon" sizes="130x128" href="<?php echo URL_IMG?>icons/logo-go-pray.ico">
     
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" href="<?php echo URL_CSS?>bootstrap.css">
@@ -21,7 +21,10 @@
     <link rel="stylesheet" type="text/css" href="<?php echo URL_PLUGIN?>owlcarousel.2.2.0/assets/owl.carousel.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo URL_PLUGIN?>owlcarousel.2.2.0/assets/owl.theme.default.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo URL_PLUGIN?>jquery-confirm.3.2.3/css/jquery-confirm.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo URL_PLUGIN?>krajee-fileinput.4.4.1/css/fileinput.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URL_PLUGIN?>krajee-fileinput.4.4.0/css/fileinput.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URL_PLUGIN?>highcharts-5.0.12/css/highcharts.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URL_PLUGIN?>awesomplete/awesomplete.css">
+    <!-- <link rel="stylesheet" type="text/css" href="<?php echo URL_PLUGIN?>awesomplete/awesomplete.theme.css"> -->
     <link rel="stylesheet" type="text/css" href="<?php echo URL_CSS?>style_parent.css">
     
 </head>

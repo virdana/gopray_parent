@@ -17,7 +17,7 @@ class Signin extends CI_Controller {
 
     	if(!empty($params['email']) && !empty($params['password'])) {
     		//send data to API here
-    		$url = 'http://103.27.207.92:88/users/Parent/login';
+    		$url = REST_URL.'users/Parent/login';
     		$parameters = array(
     					'email' => $params['email'],
     					'password' => $params['password']
@@ -35,12 +35,14 @@ class Signin extends CI_Controller {
     		$json_obj = file_get_contents($url, FALSE, $context);
     		$json_arr = json_decode($json_obj);
     		
-    		//setting token session
-    		$this->start_token_session($json_arr->access_token);
-    		$response = array('status' => 1, 'message' => 'Anda berhasil Sign in!');
-    	}
-    	else {
-    		$response = array('status' => 0, 'message' => 'Email atau Password anda salah');
+    		if(!empty($json_arr->access_token)) {
+	    		//setting token session
+	    		$this->start_token_session($json_arr->access_token);
+	    		$response = array('status' => 1, 'message' => 'Anda berhasil Sign in!');
+	    	}
+	    	else {
+	    		$response = array('status' => 0, 'message' => 'Email atau Password anda salah!');
+	    	}
     	}
     	echo json_encode($response);
     }

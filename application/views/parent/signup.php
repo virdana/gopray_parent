@@ -105,24 +105,67 @@
                             $('#btnSubmit').prop('disabled', true);
                         },
                         success: function(response, status) {
-                            console.log(status);
+                            console.log(response);
                             $('#btnSubmit').html(defaultBtn);
                             $('#btnSubmit').prop('disabled', false);
                             if(response.status == 1) {
-                                window.location.replace("<?php echo base_url()?>timeline");
+                                $.alert({
+                                    theme: 'bootstrap',
+                                    type: 'green',
+                                    title: 'Perhatian!',
+                                    content: response.message,
+                                    autoClose: 'ok|5000',
+                                    buttons: {
+                                        ok: {
+                                            btnClass: 'btn-dark',
+                                            text: 'Ok',
+                                            action: function() {}
+                                        }
+                                    }
+                                });
+                            }
+                            else {
+                                $.alert({
+                                    theme: 'bootstrap',
+                                    type: 'red',
+                                    title: 'Perhatian!',
+                                    content: response.message,
+                                    autoClose: 'ok|5000',
+                                    buttons: {
+                                        ok: {
+                                            btnClass: 'btn-dark',
+                                            text: 'Ok',
+                                            action: function() {}
+                                        }
+                                    }
+                                });
                             }
                         },
                         error: function(jqXHR, status, errorThrown) {
                             console.log(status);
                             $('#btnSubmit').html(defaultBtn);
                             $('#btnSubmit').prop('disabled', false);
+                            $.alert({
+                                theme: 'bootstrap',
+                                type: 'red',
+                                title: 'Perhatian!',
+                                content: 'Terjadi kesalahan dalam proses pendaftaran',
+                                autoClose: 'ok|5000',
+                                buttons: {
+                                    ok: {
+                                        btnClass: 'btn-dark',
+                                        text: 'Ok',
+                                        action: function() {}
+                                    }
+                                }
+                            });
                         }
                     });
                 }
                 else {
                     $('#re_password').tooltip({
                         'trigger': 'focus', 
-                        'placement': 'right',
+                        'placement': 'bottom',
                         'title': 'Konfirmasi Password tidak valid!'
                     });
                     $("#re_password").focus();
