@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <?php include "head.php" ?>
-
-    <body>    
+    <body>
         <div class="admin-container animated right">
             
             <header class="admin-header">
@@ -19,13 +18,12 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="active" role="presentation"><a href="#trophy" aria-controls="trophy" role="tab" data-toggle="tab">Trophy</a></li>
-                        <li role="presentation"><a href="#mysticker" aria-controls="mysticker" role="tab" data-toggle="tab">My Sticker</a></li>
+                        <li class="active" role="presentation"><a href="#praycircle" aria-controls="timeline" role="tab" data-toggle="tab">Pray Circle</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="navbar-notif">
                             <a href="#" class="notif-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="fa fa-bell-o"></span>
+                                <span class="fa fa-bell-o"><i class="fa fa-circle"></i></span>
                             </a>
                             
                             <ul class="dropdown-menu dropdown-notif">
@@ -143,128 +141,150 @@
             <?php include "sidebar.php" ?>
             
             <div class="tab-content">
-                <section class="admin-content tab-pane fade in active" role="tabpanel" id="trophy">
+                <section class="admin-content tab-pane fade in active" role="tabpanel" id="praycircle">
                     <div class="row">
-                        <div class="col-xs-12 detail-content trophy-content">
+                        <div class="col-sm-4 col-md-3 detail-rightmenu visible-xs">
+                            <p class="title">Keluarga</p>
                             
-                            <!-- User Dropdown -->
-                            <div class="trophy-btn text-right">
-                                <div class="btn-group user-menu">
-                                    <button type="button" id="btnTrophy" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-user"></i> <span id="btnTrophyText">Pilih Akun</span> <span class="fa fa-angle-down"></span>
-                                    </button>
-                                    <ul id="selectTrophy" class="dropdown-menu">
-                                        <?php foreach($data_kerabat as $kerabat) { ?>
-                                        <li>
-                                            <a href="javascript:void(0)" data-value="<?php echo $kerabat->id_user?>" onclick="showTrophy(this);"> 
-                                            <?php echo $kerabat->nama?></a>
-                                        </li>
-                                        <?php } ?>
-                                    </ul>
+                            <?php if(isset($data_kerabat)) { 
+                                $foto_url = "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png";
+                                foreach ($data_kerabat as $key => $kerabat) { 
+                                    if(isset($kerabat->foto_profil)) {
+                                        if(!empty($kerabat->foto_profil)) { $foto_url = $kerabat->foto_profil; } 
+                                    } 
+                                ?>
+                                <div class="media media-family">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img class="media-object" src="<?php echo $foto_url?>" width="60" height="60" alt="Go Pray Parent Profile">
+                                        </a>
+                                    </div>
+                                    <div class="media-body media-middle">
+                                        <h4 class="media-heading"><?php echo $kerabat->nama?></h4>
+                                        <p class="status"><?php echo $kerabat->kerabat?></p>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <div class="panel panel-default panel-timeline panel-collection">
-                                
-                                <!-- Info Trophy -->
-                                <div class="collection-trophy">
-                                    <a href="#" class="btn btn-info-trophy" data-toggle="modal" data-target="#trophyModal">Info Trophy</a>
-                                    <div class="modal fade modal-white" id="trophyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content infotrophy-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title" id="myModalLabel">Info Trophy</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="infotrophy-list">
-                                                        <span class="table-trophy bronze-trophy"></span>
-                                                        <p>Bronze Trophy</p>
-                                                        <p class="pull-right">0 - 500 Poin</p>
-                                                    </div>
-                                                    <div class="infotrophy-list">
-                                                        <span class="table-trophy silver-trophy"></span>
-                                                        <p>Bronze Trophy</p>
-                                                        <p class="pull-right">0 - 500 Poin</p>
-                                                    </div>
-                                                    <div class="infotrophy-list">
-                                                        <span class="table-trophy gold-trophy"></span>
-                                                        <p>Bronze Trophy</p>
-                                                        <p class="pull-right">0 - 500 Poin</p>
-                                                    </div>
-                                                    <div class="infotrophy-list">
-                                                        <span class="table-trophy platinum-trophy"></span>
-                                                        <p>Bronze Trophy</p>
-                                                        <p class="pull-right">0 - 500 Poin</p>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-green" data-dismiss="modal">Done</button>
-                                                </div>
+                                <?php } ?>
+                            <?php } ?>                            
+                        </div>
+                        
+                        <div class="col-sm-8 col-md-9 detail-content">
+                            <div class="panel panel-default panel-timeline panel-circle">
+                                <form class="circle-form">
+                                    <div class="media media-timeline">
+                                        <div class="media-left">
+                                            <a href="#">
+                                                <?php $profile_picture = !empty($data_parent->profile_picture) ? $data_parent->profile_picture : 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png'?>
+                                                <img class="media-object" src="<?php echo $profile_picture?>" width="50" height="50" alt="Go Pray User Photo Profile">
+                                            </a>
+                                        </div>
+                                        <div class="media-body circle-body">
+                                            <div class="form-group circle-for">
+                                                <span class="pointer">Untuk </span>
+                                                <input type="text" class="form-control awesomplete" list="circleList" placeholder="">
+                                                <datalist id="circleList">
+                                                    <option>tidak ada</option>
+                                                    <?php foreach($data_kerabat as $key => $kerabat) { ?>
+                                                    <option><?php echo $kerabat->email?></option>
+                                                    <?php } ?>
+                                                </datalist>
+                                            </div>
+                                            <div class="form-group circle-message">
+                                                <textarea class="form-control" placeholder="Tulis pesan disini"></textarea>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                
-                                <div class="collection-overview">
-                                    <h2 class="collection-congrat">Selamat! <span class='trophyName'>Nama</span> Mendapatkan Gold Trophy</h2>
-                                    <img src="<?php echo URL_IMG?>icons/trophy.png" width="120" height="120" alt="Go Pray Parent Trophy" class="img-responsive icon-trophy">
-                                    <p class="collection-poin">1450 Poin</p>
-                                    <p class="table-title">Berikut adalah daftar Trophy yang diperoleh <span class='trophyName'>Nama</span> tiap periode dengan jumlah poinya :</p>
-                                </div>
-                                
-                                <div class="table-responsive bank-donate table-collection">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Periode</th>
-                                                <th class="trophy-icon">Trophy</th>
-                                                <th>Poin</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Januari 2016</td>
-                                                <td class="trophy-icon"><span class="table-trophy gold-trophy"></span></td>
-                                                <td>1250</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Februari 2016</td>
-                                                <td class="trophy-icon"><span class="table-trophy silver-trophy"></span></td>
-                                                <td>640</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Maret 2016</td>
-                                                <td class="trophy-icon"><span class="table-trophy gold-trophy"></span></td>
-                                                <td>1350</td>
-                                            </tr>
-                                            <tr>
-                                                <td>April 2016</td>
-                                                <td class="trophy-icon"><span class="table-trophy silver-trophy"></span></td>
-                                                <td>740</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mei 2016</td>
-                                                <td class="trophy-icon"><span class="table-trophy gold-trophy"></span></td>
-                                                <td>1230</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Juni 2016</td>
-                                                <td class="trophy-icon"><span class="table-trophy gold-trophy"></span></td>
-                                                <td>1120</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    <div class="circle-button">
+                                        <button class="btn btn-white">
+                                            <span class="fa fa-camera"></span> Pray Daily
+                                        </button>
+                                        <input type="submit" class="btn btn-green pull-right" value="Post">
+                                    </div>
+                                </form>
                             </div>
+                            
+                            <div class="panel panel-default panel-timeline circle-timeline">
+                                <div class="media media-timeline">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img class="media-object" src="<?php echo URL_IMG?>photos/bitmap.png" width="50" height="50" alt="Go Pray User Photo Profile">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">Allie Carson</h4>
+                                        <p class="media-time">09.10 a.m</p>
+                                    </div>
+                                </div>
+                                <p class="timeline-detail">
+                                    The last time you had a cheeseburger was too long ago. Try not to drool when you think about the slightly 
+                                    charred, medium-rare meat nestled between soft brioche, cradled in crisp iceberg lettuce and flavour 
+                                    amplifying condiments. Why are you still reading this- go get a cheeseburger.
+                                </p>
+                            </div>
+                            
+                            <div class="panel panel-default panel-timeline circle-timeline">
+                                <div class="media media-timeline">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img class="media-object" src="<?php echo URL_IMG?>photos/user-5.png" width="50" height="50" alt="Go Pray User Photo Profile">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">Kenneth Santiago</h4>
+                                        <p class="media-time">09.10 a.m</p>
+                                    </div>
+                                </div>
+                                <p class="timeline-detail">
+                                    The last time you had a cheeseburger was too long ago. Try not to drool when you think about the slightly 
+                                    charred, medium-rare meat nestled between soft brioche, cradled in crisp iceberg lettuce and flavour 
+                                    amplifying condiments. Why are you still reading this- go get a cheeseburger.
+                                </p>
+                            </div>
+                            
+                            <div class="panel panel-default panel-timeline circle-timeline">
+                                <div class="media media-timeline">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img class="media-object" src="<?php echo URL_IMG?>photos/user-5.png" width="50" height="50" alt="Go Pray User Photo Profile">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">Kenneth Santiago</h4>
+                                        <p class="media-time">09.10 a.m</p>
+                                    </div>
+                                </div>
+                                <p class="timeline-detail">
+                                    <img src="<?php echo URL_IMG?>thumbnails/praycircle/picture-1.png" width="659" height="581" alt="Go Pray Circle Picture" class="img-responsive">
+                                </p>
+                            </div>
+                            
                         </div>
                         
-                    </div>
-                </section>
-                <section class="admin-content tab-pane fade" role="tabpanel" id="mysticker">
-                    <div class="row">
-                        <div class="col-xs-12 detail-content">
-                            <p>Coming soon</p>
+                        <div class="col-sm-4 col-md-3 detail-rightmenu hidden-xs">
+                            <p class="title">Keluarga</p>
+                            
+                            <?php if(isset($data_kerabat)) { 
+                                $foto_url = "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png";
+                                foreach ($data_kerabat as $key => $kerabat) { 
+                                    if(isset($kerabat->foto_profil)) {
+                                        if(!empty($kerabat->foto_profil)) { $foto_url = $kerabat->foto_profil; } 
+                                    } 
+                                ?>
+                                <div class="media media-family">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img class="media-object" src="<?php echo $foto_url?>" width="60" height="60" alt="Go Pray Parent Profile">
+                                        </a>
+                                    </div>
+                                    <div class="media-body media-middle">
+                                        <h4 class="media-heading"><?php echo $kerabat->nama?></h4>
+                                        <p class="status"><?php echo $kerabat->kerabat?></p>
+                                    </div>
+                                </div>
+                                <?php } ?>
+                            <?php } ?>
                         </div>
+                        
                     </div>
                 </section>
                 
@@ -276,26 +296,28 @@
         <?php include "foot.php" ?>
         
         <script type="text/javascript">
-            function showTrophy(elem) {
-                var id = $(elem).data('value') || '';
-                var nama = $(elem).html();
-
-                if(id != '') {
-                    // $('[id^="trophyList-"]').hide();
-                    // $('#trophyList-'+id).fadeIn();
-                    $('.trophyName').html(nama);
-                    $('#btnTrophyText').html(nama);
-                } else {
-                    console.log('ShowTrophy id not found!');
+            var owl = $('.owl-carousel');
+            owl.owlCarousel({
+                nav: true,
+                navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
+                dots: false,
+                margin: 20,
+                autoHeight: true,
+                autoHeightClass: 'owl-height',
+                responsiveClass:true,
+                responsive:{
+                    0:{ items:1 },
+                    400:{ items:2 },
+                    600:{ items:3 },
+                    1200:{ items:6 }
                 }
-            }
+            });
         </script>
-
+        
         <!-- Dial Panel Toggle Button -->
         <script type="text/javascript">
             $(document).ready(function() {
                 var action = 1;
-
                 $("[data-toggle=offcanvas]").on("click", viewSomething);
 
                 function viewSomething() {

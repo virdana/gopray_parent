@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <?php include "head.php" ?>
-
+    
     <body>    
         <div class="admin-container animated right">
             
@@ -19,8 +19,7 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="active" role="presentation"><a href="#trophy" aria-controls="trophy" role="tab" data-toggle="tab">Trophy</a></li>
-                        <li role="presentation"><a href="#mysticker" aria-controls="mysticker" role="tab" data-toggle="tab">My Sticker</a></li>
+                        <li class="active" role="presentation"><a href="#sticker" aria-controls="sticker" role="tab" data-toggle="tab">Sticker</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="navbar-notif">
@@ -143,127 +142,79 @@
             <?php include "sidebar.php" ?>
             
             <div class="tab-content">
-                <section class="admin-content tab-pane fade in active" role="tabpanel" id="trophy">
+                <section class="admin-content tab-pane fade in active" role="tabpanel" id="sticker">
                     <div class="row">
-                        <div class="col-xs-12 detail-content trophy-content">
-                            
-                            <!-- User Dropdown -->
-                            <div class="trophy-btn text-right">
-                                <div class="btn-group user-menu">
-                                    <button type="button" id="btnTrophy" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-user"></i> <span id="btnTrophyText">Pilih Akun</span> <span class="fa fa-angle-down"></span>
-                                    </button>
-                                    <ul id="selectTrophy" class="dropdown-menu">
-                                        <?php foreach($data_kerabat as $kerabat) { ?>
-                                        <li>
-                                            <a href="javascript:void(0)" data-value="<?php echo $kerabat->id_user?>" onclick="showTrophy(this);"> 
-                                            <?php echo $kerabat->nama?></a>
-                                        </li>
-                                        <?php } ?>
-                                    </ul>
+                        <div class="col-xs-12 detail-content">
+                            <div class="panel panel-default panel-timeline panel-sticker">
+                                <div class="form-group form-filter">
+                                    <select class="form-control">
+                                        <option value="0">All</option>
+                                    </select>
+                                    <span class="fa fa-angle-down"></span>
                                 </div>
-                            </div>
-                            
-                            <div class="panel panel-default panel-timeline panel-collection">
-                                
-                                <!-- Info Trophy -->
-                                <div class="collection-trophy">
-                                    <a href="#" class="btn btn-info-trophy" data-toggle="modal" data-target="#trophyModal">Info Trophy</a>
-                                    <div class="modal fade modal-white" id="trophyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content infotrophy-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title" id="myModalLabel">Info Trophy</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="infotrophy-list">
-                                                        <span class="table-trophy bronze-trophy"></span>
-                                                        <p>Bronze Trophy</p>
-                                                        <p class="pull-right">0 - 500 Poin</p>
-                                                    </div>
-                                                    <div class="infotrophy-list">
-                                                        <span class="table-trophy silver-trophy"></span>
-                                                        <p>Bronze Trophy</p>
-                                                        <p class="pull-right">0 - 500 Poin</p>
-                                                    </div>
-                                                    <div class="infotrophy-list">
-                                                        <span class="table-trophy gold-trophy"></span>
-                                                        <p>Bronze Trophy</p>
-                                                        <p class="pull-right">0 - 500 Poin</p>
-                                                    </div>
-                                                    <div class="infotrophy-list">
-                                                        <span class="table-trophy platinum-trophy"></span>
-                                                        <p>Bronze Trophy</p>
-                                                        <p class="pull-right">0 - 500 Poin</p>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-green" data-dismiss="modal">Done</button>
-                                                </div>
-                                            </div>
+                                <ul class="sticker-list">
+                                    <li class="sticker-item">
+                                        <div class="img-sticker">
+                                            <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="150" height="150" alt="Sticker Icon" class="img-responsive">
                                         </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="collection-overview">
-                                    <h2 class="collection-congrat">Selamat! <span class='trophyName'>Nama</span> Mendapatkan Gold Trophy</h2>
-                                    <img src="<?php echo URL_IMG?>icons/trophy.png" width="120" height="120" alt="Go Pray Parent Trophy" class="img-responsive icon-trophy">
-                                    <p class="collection-poin">1450 Poin</p>
-                                    <p class="table-title">Berikut adalah daftar Trophy yang diperoleh <span class='trophyName'>Nama</span> tiap periode dengan jumlah poinya :</p>
-                                </div>
-                                
-                                <div class="table-responsive bank-donate table-collection">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Periode</th>
-                                                <th class="trophy-icon">Trophy</th>
-                                                <th>Poin</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Januari 2016</td>
-                                                <td class="trophy-icon"><span class="table-trophy gold-trophy"></span></td>
-                                                <td>1250</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Februari 2016</td>
-                                                <td class="trophy-icon"><span class="table-trophy silver-trophy"></span></td>
-                                                <td>640</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Maret 2016</td>
-                                                <td class="trophy-icon"><span class="table-trophy gold-trophy"></span></td>
-                                                <td>1350</td>
-                                            </tr>
-                                            <tr>
-                                                <td>April 2016</td>
-                                                <td class="trophy-icon"><span class="table-trophy silver-trophy"></span></td>
-                                                <td>740</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mei 2016</td>
-                                                <td class="trophy-icon"><span class="table-trophy gold-trophy"></span></td>
-                                                <td>1230</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Juni 2016</td>
-                                                <td class="trophy-icon"><span class="table-trophy gold-trophy"></span></td>
-                                                <td>1120</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        <p class="sticker-name">Solat wajib</p>
+                                    </li>
+                                    <li class="sticker-item">
+                                        <div class="img-sticker">
+                                            <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="150" height="150" alt="Sticker Icon" class="img-responsive">
+                                        </div>
+                                        <p class="sticker-name">Solat Sunnah Rawatib</p>
+                                    </li>
+                                    <li class="sticker-item">
+                                        <div class="img-sticker">
+                                            <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="150" height="150" alt="Sticker Icon" class="img-responsive">
+                                        </div>
+                                        <p class="sticker-name">Sedekah</p>
+                                    </li>
+                                    <li class="sticker-item">
+                                        <div class="img-sticker">
+                                            <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="150" height="150" alt="Sticker Icon" class="img-responsive">
+                                        </div>
+                                        <p class="sticker-name">Puasa Wajib</p>
+                                    </li>
+                                    <li class="sticker-item">
+                                        <div class="img-sticker">
+                                            <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="150" height="150" alt="Sticker Icon" class="img-responsive">
+                                        </div>
+                                        <p class="sticker-name">Juzamma</p>
+                                    </li>
+                                    <li class="sticker-item">
+                                        <div class="img-sticker">
+                                            <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="150" height="150" alt="Sticker Icon" class="img-responsive">
+                                        </div>
+                                        <p class="sticker-name">Membantu Orang Tua</p>
+                                    </li>
+                                    <li class="sticker-item">
+                                        <div class="img-sticker">
+                                            <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="150" height="150" alt="Sticker Icon" class="img-responsive">
+                                        </div>
+                                        <p class="sticker-name">Iqra</p>
+                                    </li>
+                                    <li class="sticker-item">
+                                        <div class="img-sticker">
+                                            <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="150" height="150" alt="Sticker Icon" class="img-responsive">
+                                        </div>
+                                        <p class="sticker-name">Baca Buku Nabi</p>
+                                    </li>
+                                </ul>
                             </div>
+                            
+                            
+                            
                         </div>
                         
                     </div>
                 </section>
-                <section class="admin-content tab-pane fade" role="tabpanel" id="mysticker">
-                    <div class="row">
-                        <div class="col-xs-12 detail-content">
-                            <p>Coming soon</p>
+
+                <section class="admin-content tab-pane fade" role="tabpanel" id="summary">
+                    <div class="container">
+                        <div class="row">
+                            <p>a</p>
                         </div>
                     </div>
                 </section>
@@ -273,24 +224,27 @@
         </div>
         
         <footer></footer>
-        <?php include "foot.php" ?>
-        
+        <?php include"foot.php" ?>
+
         <script type="text/javascript">
-            function showTrophy(elem) {
-                var id = $(elem).data('value') || '';
-                var nama = $(elem).html();
-
-                if(id != '') {
-                    // $('[id^="trophyList-"]').hide();
-                    // $('#trophyList-'+id).fadeIn();
-                    $('.trophyName').html(nama);
-                    $('#btnTrophyText').html(nama);
-                } else {
-                    console.log('ShowTrophy id not found!');
+            var owl = $('.owl-carousel');
+            owl.owlCarousel({
+                nav: true,
+                navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
+                dots: false,
+                margin: 20,
+                autoHeight: true,
+                autoHeightClass: 'owl-height',
+                responsiveClass:true,
+                responsive:{
+                    0:{ items:1 },
+                    400:{ items:2 },
+                    600:{ items:3 },
+                    1200:{ items:6 }
                 }
-            }
+            });
         </script>
-
+        
         <!-- Dial Panel Toggle Button -->
         <script type="text/javascript">
             $(document).ready(function() {

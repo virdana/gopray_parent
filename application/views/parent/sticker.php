@@ -2,7 +2,7 @@
 <html lang="en">
     <?php include "head.php" ?>
     
-    <body>    
+    <body>
         <div class="admin-container animated right">
             
             <header class="admin-header">
@@ -147,65 +147,20 @@
                         <div class="col-xs-12 detail-content">
                             <div class="panel panel-default panel-timeline panel-sticker">
                                 <div class="form-group form-filter">
-                                    <select class="form-control">
-                                        <option value="0">All</option>
+                                    <select id="selectPaket" class="form-control">
+                                        <option value='0' selected disabled>Pilih Paket Stiker</option>
+                                        <?php foreach($list_paket_sticker as $paket) { ?>
+                                        <option value="<?php echo urlencode($paket->nama_paket)?>"><?php echo $paket->nama_paket?></option>
+                                        <?php } ?>
                                     </select>
                                     <span class="fa fa-angle-down"></span>
                                 </div>
-                                <ul class="sticker-list">
-                                    <li class="sticker-item">
-                                        <div class="img-sticker">
-                                            <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="150" height="150" alt="Sticker Icon" class="img-responsive">
-                                        </div>
-                                        <p class="sticker-name">Solat wajib</p>
-                                    </li>
-                                    <li class="sticker-item">
-                                        <div class="img-sticker">
-                                            <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="150" height="150" alt="Sticker Icon" class="img-responsive">
-                                        </div>
-                                        <p class="sticker-name">Solat Sunnah Rawatib</p>
-                                    </li>
-                                    <li class="sticker-item">
-                                        <div class="img-sticker">
-                                            <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="150" height="150" alt="Sticker Icon" class="img-responsive">
-                                        </div>
-                                        <p class="sticker-name">Sedekah</p>
-                                    </li>
-                                    <li class="sticker-item">
-                                        <div class="img-sticker">
-                                            <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="150" height="150" alt="Sticker Icon" class="img-responsive">
-                                        </div>
-                                        <p class="sticker-name">Puasa Wajib</p>
-                                    </li>
-                                    <li class="sticker-item">
-                                        <div class="img-sticker">
-                                            <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="150" height="150" alt="Sticker Icon" class="img-responsive">
-                                        </div>
-                                        <p class="sticker-name">Juzamma</p>
-                                    </li>
-                                    <li class="sticker-item">
-                                        <div class="img-sticker">
-                                            <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="150" height="150" alt="Sticker Icon" class="img-responsive">
-                                        </div>
-                                        <p class="sticker-name">Membantu Orang Tua</p>
-                                    </li>
-                                    <li class="sticker-item">
-                                        <div class="img-sticker">
-                                            <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="150" height="150" alt="Sticker Icon" class="img-responsive">
-                                        </div>
-                                        <p class="sticker-name">Iqra</p>
-                                    </li>
-                                    <li class="sticker-item">
-                                        <div class="img-sticker">
-                                            <img src="<?php echo URL_IMG?>photos/no-sticker.png" width="150" height="150" alt="Sticker Icon" class="img-responsive">
-                                        </div>
-                                        <p class="sticker-name">Baca Buku Nabi</p>
-                                    </li>
-                                </ul>
+                                <div class="center-block text-center">
+                                    <img id="loadingPaket" src="<?php echo URL_IMG?>loading.svg"  alt="Loading..." width="50" height="50" style="display:none;">
+                                    <p id="textPaket" class="text-muted" style="font-size: 22px; padding: 50px 20px; display: none;">Tidak ada stiker</p>
+                                    <ul id="listPaket" class="sticker-list"> <!-- load by JS --> </ul>
+                                </div>
                             </div>
-                            
-                            
-                            
                         </div>
                         
                     </div>
@@ -224,32 +179,77 @@
         </div>
         
         <footer></footer>
+        
+        <!-- Javascript -->
         <?php include"foot.php" ?>
-
+        
         <script type="text/javascript">
-            var owl = $('.owl-carousel');
-            owl.owlCarousel({
-                nav: true,
-                navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
-                dots: false,
-                margin: 20,
-                autoHeight: true,
-                autoHeightClass: 'owl-height',
-                responsiveClass:true,
-                responsive:{
-                    0:{ items:1 },
-                    400:{ items:2 },
-                    600:{ items:3 },
-                    1200:{ items:6 }
+            $('#selectPaket').on('change', function() {
+                console.log('wow');
+                var value = $(this).val() || '';
+                var imgLoading = $('#loadingPaket');
+                var textPaket = $('#textPaket');
+                var listPaket = $('#listPaket');
+                if(value != '') {
+                    $.ajax({
+                        url: "<?php echo base_url('sticker/get_paket')?>?nama=" + encodeURIComponent(value),
+                        type: 'GET',
+                        dataType: 'json',
+                        beforeSend: function(){
+                            listPaket.hide();
+                            textPaket.hide();
+                            imgLoading.fadeIn();
+                        },
+                        success: function(response, status){
+                            console.log(response.data);
+                            imgLoading.hide();
+                            if(response.status == 1) {
+                                var data = response.data;
+                                if(data.length > 0){
+                                    loadStickers(data);
+                                    listPaket.fadeIn();
+                                }
+                                else {
+                                    textPaket.html('Tidak ada stiker').fadeIn();
+                                }
+                            } else {
+                                textPaket.html('Tidak ada stiker').fadeIn();
+                            }
+                        },
+                        error: function(jqXhr, errorMessage, errorThrown){
+                            console.log(errorMessage);
+                            imgLoading.hide();
+                            textPaket.html('Tidak ada stiker').fadeIn();
+                        }
+                    });
                 }
             });
+
+            function loadStickers(data='') {
+                if(data != '') {
+                    var html = '';
+                    $('#listPaket').html('');
+                    for(i=0; i<data.length; i++) {
+                        if(data[i] != null) {
+                        html += '<li class="sticker-item">'
+                                + '<div class="img-sticker">'
+                                    + '<img src="'+data[i]['cover']+'" width="150" height="150" alt="Sticker Icon" class="img-responsive">'
+                                    + '</div>'
+                                + '<a href="<?php echo base_url()?>sticker/detail?nama='+encodeURIComponent(data[i]['nama'])+'" class="sticker-name">'+data[i]['nama']+'</a>'
+                            + '</li>';
+                        }
+                    }
+                    $('#listPaket').append(html);
+                }
+            }
         </script>
         
         <!-- Dial Panel Toggle Button -->
         <script type="text/javascript">
             $(document).ready(function() {
-                var action = 1;
+                $('#selectPaket option:nth(1)').prop('selected', true).trigger('change');
 
+                var action = 1;
                 $("[data-toggle=offcanvas]").on("click", viewSomething);
 
                 function viewSomething() {

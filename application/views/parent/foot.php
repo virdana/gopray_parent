@@ -18,6 +18,9 @@
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip(); 
     });
+    // -- temporary removed in development (in progress)
+    $('.notif-icon').hide();
+    //  -- 
 </script>
 
 <!-- Signout Script -->

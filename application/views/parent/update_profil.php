@@ -170,39 +170,56 @@
                                         <!-- <div class="profile-container"> -->
                                         <div class="foto-container">
                                             <div class="kv-avatar center-block text-center" style="width:200px">
-                                                <input id="foto" name="foto" type="file" class="file-loading" required>
+                                                <input id="foto" name="foto" type="file" class="file-loading">
                                             </div>
                                         </div>
                                         <div id="fotoAlert" class="center-block text-center" style="margin-top:10px;width:100%;display:none"></div>
                                     </div>
                                     <div class="col-sm-6 col-sm-pull-6">
                                         <div class="form-group">
-                                            <label class="control-label">Nama Depan</label>
-                                            <input type="text" name="nama_depan" id="nama_depan" class="form-control" placeholder="Nama Depan">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label">Nama Belakang</label>
-                                            <input type="text" name="nama_belakang" id="nama_belakang" class="form-control" placeholder="Nama Belakang">
+                                            <label class="control-label">Nama Lengkap</label>
+                                            <input type="text" name="nama" id="nama" class="form-control" value="<?php echo $data_parent->nama?>" placeholder="Nama Lengkap" required="required">
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Email</label>
-                                            <input type="email" name="email" id="email" class="form-control" placeholder="Example@email.com">
+                                            <input type="email" name="email" id="email" class="form-control" value="<?php echo $data_parent->email?>" placeholder="Example@email.com" required="required">
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">No. HP</label>
-                                            <input type="number" name="no_hp" id="no_hp" class="form-control" placeholder="Nomor Telepon/HP">
+                                            <input type="number" name="no_hp" id="no_hp" class="form-control" value="<?php echo $data_parent->no_hp?>" placeholder="Nomor Telepon/HP" required="required">
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Hubungan Keluarga</label>
-                                            <input type="text" name="hubungan" id="hubungan" class="form-control" placeholder="ex: Mama, Papa, Adik, Kakak">
+                                            <input type="text" name="hubungan" id="hubungan" class="form-control" value="<?php echo $data_parent->kerabat?>" placeholder="ex: Mama, Papa, Adik, Kakak" required="required">
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label">Password</label>
-                                            <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="checkGantiPassword" value="1" onchange="collapsePanel(this);" data-target="#collapseGantiPassword">
+                                                    <span class="cr"><i class=" cr-icon fa fa-check"></i></span>
+                                                    Ganti Password?
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div id="collapseGantiPassword" class="panel-collapse collapse">
+                                            <div class="form-group">
+                                                <label class="control-label">Password Baru</label>
+                                                <input type="password" name="password_baru" id="password_baru" class="form-control" placeholder="Password">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Konfirmasi Password Baru</label>
+                                                <input type="password" name="re_password_baru" id="re_password_baru" class="form-control" placeholder="Password">
+                                            </div>
+                                        </div>
+
+                                        <hr>
+                                        <div class="form-group">
+                                            <label class="control-label">Password*</label>
+                                            <input type="password" name="password" id="password" class="form-control" placeholder="Password" required="required">
                                         </div>
                                         <div class="form-group btn-changeprofile">
-                                            <input type="reset" class="btn btn-white" value="Batal">
-                                            <input type="submit" class="btn btn-green" value="Simpan">
+                                            <!-- <input type="reset" class="btn btn-white" value="Batal"> -->
+                                            <input type="submit" id="btnSubmit" class="btn btn-green" value="Simpan">
                                         </div>
                                     </div>
                                     </div>
@@ -245,26 +262,103 @@
                 allowedFileExtensions: ["jpg", "png", "gif"]
             });
 
+            function collapsePanel(elem) {
+                var target = $(elem).data('target');
+                if($(elem).is(':checked')) {
+                    $(target).collapse('show');
+                }
+                else {
+                    $(target).collapse('hide');
+                }
+            }
+
+            // Form submit handler
+            $('#changeProfileForm').on('submit', function(e) {
+                e.preventDefault();
+                var allowSubmit = true;
+                var password = $('#password_baru').val() || '';
+                var rePassword = $('#re_password_baru').val() || '';
+                var checkGantiPassword = $('#checkGantiPassword').is(':checked');
+
+                console.log(checkGantiPassword);
+                if(checkGantiPassword != true) {
+                    $('#collapseGantiPassword input').val('');
+                } else {
+                    if(password != '') {
+                        if(password !== rePassword) {
+                            allowSubmit = false;
+                            $('#re_password_baru').tooltip({
+                                'trigger': 'focus', 
+                                'placement': 'bottom',
+                                'title': 'Konfirmasi Password tidak valid!'
+                            });
+                            $("#re_password_baru").focus();   
+                        }
+                    }
+                }
+
+                if(allowSubmit === true) {
+                    doSubmit();
+                }
+            });
             function doSubmit() {
+                var defaultHtml = $('#btnSubmit').html();
                 $.ajax({
                     url: $('#changeProfileForm').attr('action'),
                     type: $('#changeProfileForm').attr('method'),
                     data: new FormData($('#changeProfileForm')[0]),
+                    dataType: 'json',
                     cache: false,
                     contentType: false,
                     processData: false,
                     beforeSend: function(){
-
+                        $('#btnSubmit').prop('disabled', true);
+                        $('#btnSubmit').html('Menyimpan...');
                     },
                     success: function(response, status){
                         console.log(response);
+                        $('#btnSubmit').prop('disabled', false);
+                        $('#btnSubmit').html(defaultHtml);
+                        if(response.status == 1) {
+                            $.alert({
+                                    theme: 'bootstrap',
+                                    type: 'green',
+                                    title: '',
+                                    content: response.message,
+                                    autoClose: 'ok|5000',
+                                    buttons: {
+                                        ok: {
+                                            btnClass: 'btn-dark',
+                                            text: 'Ok',
+                                            action: function() {}
+                                        }
+                                    }
+                                });
+                        }
+                        else {
+                            $.alert({
+                                    theme: 'bootstrap',
+                                    type: 'red',
+                                    title: '',
+                                    content: response.message,
+                                    autoClose: 'ok|5000',
+                                    buttons: {
+                                        ok: {
+                                            btnClass: 'btn-dark',
+                                            text: 'Ok',
+                                            action: function() {}
+                                        }
+                                    }
+                                });
+                        }
                     },
                     error: function(jqXhr, status, errorThrown){ 
                         console.log(status);
+                        $('#btnSubmit').prop('disabled', false);
+                        $('#btnSubmit').html(defaultHtml);
                     
                     },
-
-                })
+                });
             };
         </script>
         

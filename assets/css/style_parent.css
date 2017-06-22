@@ -55,6 +55,7 @@ ul{
 .btn{
     padding-left: 20px;
     padding-right: 20px;
+    white-space: normal;
 }
 .btn:focus,
 .btn:active:focus,
@@ -93,6 +94,62 @@ ul{
     outline-offset: 0;
 }
 
+/* Rounded Button Green */
+.btn-round-green{
+    background: #20C27B;
+    border-radius: 4px;
+    color: #fff;
+    font-family: "Avenir Medium", Fallback, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-stretch: normal;
+    font-weight: 500;
+    text-align: center;
+    border: 1px solid #03ba6a;
+    width: 125px;
+}
+.btn-round-green:focus,
+.btn-round-green:hover{
+    color: #fff;
+    outline: none;
+}
+.btn-round-green:focus,
+.btn-round-green:active:focus,
+.btn-round-green.active:focus,
+.btn-round-green.focus,
+.btn-round-green:active.focus, .btn-green.active.focus {
+    outline: none;
+    outline-offset: 0;
+}
+
+/* Rounded Button White */
+.btn-round-white{
+    background: #fff;
+    border-radius: 4px;
+    color: #20C27B;
+    font-family: "Avenir Medium", Fallback, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-stretch: normal;
+    font-weight: 500;
+    text-align: center;
+    border: 1px solid #20C27B;
+    width: 125px;
+}
+.btn-round-green:focus,
+.btn-round-green:hover{
+    color: #20C27B;
+    outline: none;
+}
+.btn-round-green:focus,
+.btn-round-green:active:focus,
+.btn-round-green.active:focus,
+.btn-round-green.focus,
+.btn-round-green:active.focus, .btn-green.active.focus {
+    outline: none;
+    outline-offset: 0;
+}
+
 /* White Button */
 .btn-white{
     background: #fff;
@@ -120,6 +177,100 @@ ul{
     outline-offset: 0;
 }
 
+/* - Checkboxes & Radio Buttons - */
+.checkbox label,
+.radio label {
+    padding-left: 0;
+    font-family: 'Avenir Roman', Fallback, sans-serif;
+    font-size: 16px;
+    line-height: normal;
+    letter-spacing: 0;
+    color: #2a2a2a;
+}
+.checkbox label:after, 
+.radio label:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.checkbox .cr {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #a9a9a9;
+    background: #fff;
+    width: 23px;
+    height: 23px;
+    float: left;
+    margin-right: .5em;
+    top: 2px;
+}
+.radio .cr{
+    position: relative;
+    display: inline-block;
+    border: 1px solid #20c27b;
+    background: #fff;
+    width: 17px;
+    height: 17px;
+    float: left;
+    margin-right: .5em;
+    top: 2px;
+}
+.checkbox .cr{
+    border-radius: .25em;
+}
+.radio .cr {
+    border-radius: 50px;
+}
+.radio .cr {
+    border-radius: 50%;
+}
+.checkbox .cr .cr-icon {
+    position: absolute;
+    font-size: .8em;
+    line-height: 0;
+    top: 50%;
+}
+.radio .cr .cr-icon {
+    position: absolute;
+    font-size: 15px;
+    color: #20C27B;
+    line-height: 0;
+    top: 50%;
+}
+.checkbox .cr .cr-icon{
+    left: 20%;
+}
+.radio .cr .cr-icon {
+    left: 1px;
+}
+.radio .cr .cr-icon {
+    margin-left: 0.04em;
+}
+.checkbox label input[type="checkbox"],
+.radio label input[type="radio"] {
+    display: none;
+}
+.checkbox label input[type="checkbox"] + .cr > .cr-icon,
+.radio label input[type="radio"] + .cr > .cr-icon {
+    transform: scale(3) rotateZ(-20deg);
+    opacity: 0;
+    transition: all .3s ease-in;
+}
+.checkbox label input[type="checkbox"]:checked + .cr > .cr-icon,
+.radio label input[type="radio"]:checked + .cr > .cr-icon {
+    transform: scale(1) rotateZ(0deg);
+    opacity: 1;
+}
+.checkbox label input[type="checkbox"]:disabled + .cr,
+.radio label input[type="radio"]:disabled + .cr {
+    opacity: .5;
+}
+.checkbox.box-title{
+    display: inline-block;
+    white-space: nowrap;
+}
+
+
 /* - User Dropdown - */
 .user-menu{
     text-align: right;
@@ -136,14 +287,17 @@ ul{
     text-align: left;
     border-radius: 50px;
     height: 36px;
+    /*width: 200px;*/
     width: 100%;
     position: relative;
     display: inline-block;
     float: none;
 }
+/* My Addition */
 .user-menu .btn #btnSummaryText{
     padding-right: 20px;
 }
+/* /My Addition */
 .user-menu.open > .dropdown-toggle.btn-default,
 .user-menu .btn-default{
     border-color: #20C27B;
@@ -218,6 +372,19 @@ ul{
     font-family: "Avenir Roman", Fallback, sans-serif;
     opacity: 0.5;
     color: #363636;
+}
+
+/* - Input Group - */
+.input-group-addon{
+    background-color: #fff;
+    border-color: #e0e1ed;
+}
+.input-group .form-control{
+    border-left: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
 }
 
 /* --- Navigation Bar --- */
@@ -690,6 +857,7 @@ ul{
     font-stretch: normal;
     font-weight: 400;
 }
+
 .panel-timeline .sticker-list{
     margin-top: 15px;
     margin-bottom: 30px;
@@ -697,6 +865,11 @@ ul{
     padding-left: 10px;
     padding-right: 10px;
 }
+.panel-timeline-detail .sticker-list-detail{
+    margin-top: 15px;
+    margin-bottom: 30px;
+    position: relative;
+}       
 .sticker-list .owl-nav .owl-prev{
     display: block;
     position: absolute;
@@ -925,6 +1098,15 @@ ul{
     margin-bottom: 30px;
     word-wrap: break-word;
 }
+.panel-sticker-detail .sticker-item-detail{
+    width: 150px;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    margin-left: 35px;
+    margin-top: 35px;
+    word-wrap: break-word;
+}
 .sticker-item .img-sticker{
     display: inline-block;
     margin-bottom: 20px;
@@ -936,6 +1118,142 @@ ul{
     font-style: normal;
     font-stretch: normal;
     font-weight: 500;
+}
+
+.font-detail1{
+    font-family: "Avenir Medium", Fallback, sans-serif;
+    font-size: 32.0px;
+    padding-top: 38px;
+    color: #363636;
+}
+.font-detail2{
+    font-family: "Avenir Medium", Fallback, sans-serif;
+    font-size: 18.0px;
+    color: #363636;
+}
+.font-detail3{
+    font-family: "Avenir Medium", Fallback, sans-serif;
+    font-size: 32.0px;
+    color: #363636;
+}
+/* --- Sticker Detail --- */
+.sticker-detail .media-body{
+    padding-left: 30px;
+}
+.sticker-detail .sticker-title{
+    color: #363636;
+    font-family: "Avenir Heavy", Fallback, sans-serif;
+    font-size: 32.0px;
+    font-style: normal;
+    font-stretch: normal;
+    font-weight: 400;
+    margin-top: 15px;
+}
+.sticker-detail .sticker-desc{
+    color: #363636;
+    font-family: "Avenir Roman", Fallback, sans-serif;
+    font-size: 18.0px;
+    font-style: normal;
+    font-stretch: normal;
+    font-weight: 400;
+}
+.sticker-detail .sticker-price{
+    color: #20c17b;
+    font-family: "Avenir Medium", Fallback, sans-serif;
+    font-size: 28.0px;
+    font-style: normal;
+    font-stretch: normal;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+.sticker-detail .sticker-list{
+    margin-top: 30px;
+}
+.buysticker .modal-title{
+    font-family: "Avenir Medium", Fallback, sans-serif;
+    font-size: 20.0px;
+    font-style: normal;
+    font-stretch: normal;
+    font-weight: 500;
+    color: #20c17b;
+}
+.buysticker .radio{
+    position: relative;
+}
+.buysticker .payment-logo{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+}
+.buysticker .visa-logo img{
+    margin-right: 5px;
+    display: inline-block;
+}
+.buysticker .modal-body{
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.sticker-form .input-group-addon{
+    color: #20C27B;
+    font-size: 22px;
+}
+.sticker-form .control-label{
+    color: #363636;
+    font-family: "Avenir Roman", Fallback, sans-serif;
+    font-size: 16.0px;
+    font-style: normal;
+    font-stretch: normal;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+.mobile-form .input-group .form-control{
+    width: 260px;
+}
+.cc-form .form-group{
+    margin-bottom: 20px;
+}
+.cc-form .form-group .row{
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.cc-form .form-group .left{
+    padding-right: 10px;
+}
+.cc-form .form-group .right{
+    padding-left: 10px;
+}
+.bank-sticker.modal-body{
+    padding-top: 0;
+    padding-bottom: 70px;
+}
+.bank-sticker .row{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e1ed;
+}
+.bank-sticker p{
+    color: #363636;
+    font-family: "Avenir Roman", Fallback, sans-serif;
+    font-size: 16.0px;
+    font-style: normal;
+    font-stretch: normal;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+.bank-sticker .detail-info{
+    text-align: right;
+}
+.bank-sticker .img-responsive{
+    display: inline-block;
+}
+.bank-sticker .bank-nominal{
+    margin-bottom: 0;
+}
+.bank-sticker .important-info{
+    color: #F3004E;
 }
 
 
@@ -1097,6 +1415,10 @@ ul{
     background-position: center center;
 }
 
+.panel-collection .collection-sticker{
+    text-align: left;
+}
+
 /* - Collection Modal - */
 .modal-open .modal.modal-white{
     background-color: rgba(255, 255, 255, 0.7) !important;
@@ -1153,6 +1475,8 @@ ul{
 .panel-circle .circle-form .media{
     padding-left: 20px;
     padding-right: 20px;
+    position: relative;
+    overflow: visible;
 }
 .circle-form .media .media-left{
     padding-top: 10px;
@@ -1188,6 +1512,137 @@ ul{
 }
 .circle-timeline .media-timeline .media-heading{
     min-height: inherit;
+}
+
+/* - Pray Circle - */
+.circle-form .daily-message{
+    padding-left: 0;
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .25);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .25);
+    z-index: 999;
+    position: absolute;
+    width: auto;
+    height: 250px;
+    top: 40px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    display: none;
+}
+.daily-message .circle-tab-container{
+    border: 1px solid #E0E1ED;
+    border-radius: 3px;
+}
+.circle-tab-container .circle-tab{
+    padding-left: 15px;
+    background: #fff;
+}
+.circle-tab > li{
+    margin-bottom: -2px;
+    padding: 15px 15px 0 15px
+}
+.circle-tab > li > a{
+    font-family: "Avenir Medium", Fallback, sans-serif;
+    font-size: 20.0px;
+    font-style: normal;
+    font-stretch: normal;
+    font-weight: 500;
+    color: #464646;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-right: 0;
+    line-height: normal;
+    padding: 10px 0;
+}
+.circle-tab > li > a:hover,
+.circle-tab > li > a:focus{
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+}
+.circle-tab > li.active > a,
+.circle-tab > li.active > a:hover,
+.circle-tab > li.active > a:focus{
+    color: #23b968;
+    border: none;
+    border-bottom: 2px solid #20C27B;
+    padding-left: 0;
+    padding-right: 0;
+}
+.circle-tab-container .tab-content .form-group{
+    margin-bottom: 0;
+    background: #fff;
+}
+.circle-message .free-text{
+    margin-left: 30px;
+}
+.daily-message .circle-message{
+    padding-top: 20px;
+}
+.circle-message .text-form{
+    padding: 10px 15px;
+    border-top: 1px solid #e0e1ed;
+    text-align: right;
+}
+.free-text-white{
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: none;
+}
+/* Upload Image */
+.circle-upload{
+    padding-left: 30px;
+    padding-right: 30px;
+    background: #fff;
+}
+.daily-message .circle-separator{
+    border-top: 1px solid #e0e1ed;
+    margin: 0;
+}
+.circle-upload .form-group{
+    padding: 10px;
+}
+.circle-upload .label-grey{
+    color: #363636;
+    font-family: "Avenir Roman", Fallback, sans-serif;
+    font-size: 16.0px;
+    font-style: normal;
+    font-stretch: normal;
+    font-weight: 400;
+    opacity: 0.5;
+}
+.circle-upload .label-green{
+    color: #20C17B;
+    font-family: "Avenir Medium", Fallback, sans-serif;
+    font-size: 18.0px;
+    font-style: normal;
+    font-stretch: normal;
+    font-weight: 400;
+}
+.circle-upload .form-control{
+    padding-left: 0;
+}
+.circle-tab-container .form-group.upload-btn{
+    background: #fff;
+    padding: 15px;
+    position: relative;
+}
+.circle-tab-container .form-group .file-input{
+    display: inline-block;
+}
+.circle-tab-container .form-group .btn-done{
+    position: absolute;
+    top: auto;
+    bottom: 15px;
+    right: 15px;
+    left: auto;
 }
 
 
@@ -1559,15 +2014,7 @@ ul{
         padding-top: 21px;
         padding-bottom: 21px;
     }
-/*
-    .navbar-notif.open .notif-icon{
-        width: 55px;
-        height: 61px;
-        position: absolute;
-        right: 0;
-        top: -66px;
-    }
-*/
+
     .dropdown-notif .media-left{
         display: block;
         margin-bottom: 10px;
@@ -1597,6 +2044,19 @@ ul{
         width: 100%;
         margin-top: 20px;
     }
+    .sticker-pict{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .sticker-capt{
+        text-align: center;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .font-detail3{
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
     
     /* --- Change Profile --- */
     .changeprofile .profile-container{
@@ -1606,6 +2066,51 @@ ul{
     }
     .btn-changeprofile{
         text-align: center;
+    }
+
+    /* --- Sticker Detail --- */
+    .sticker-detail .media{
+        margin-bottom: 65px;
+    }
+    .sticker-detail .media-left{
+        display: block;
+        margin-bottom: 15px;
+    }
+    .sticker-detail .media-left .media-object{
+        max-width: 100%;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .sticker-detail .media-body{
+        padding-left: 0;
+    }
+    .sticker-detail .panel-sticker .sticker-item{
+        width: 120px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }    
+    .bank-sticker .detail-info{
+        text-align: left;
+    }
+    .cc-form .form-group .right{
+        padding-left: 15px;    
+    }
+    .cc-form .form-group .left{
+        padding-right: 15px;
+        margin-bottom: 15px;
+    }
+    
+}
+@media screen and (max-width: 493px){
+    .panel-sticker-detail .sticker-item-detail {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .panel-timeline-detail .sticker-list-detail{
+       margin-left: auto;
+       margin-right: auto;
     }
     
 }
@@ -1693,6 +2198,23 @@ ul{
     }    
     .circle-button input[type=submit]{
         float: none !important;
+    }
+    .buysticker .payment-logo{
+        position: relative;
+        margin-left: 0;
+        margin-top: 15px;
+    }
+    .mobile-form .input-group .form-control{
+        width: 100%;
+    }
+    
+    /* --- Collection --- */
+    .sticker-capt-container{
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .circle-form .daily-message{
+        top: -40px;
     }
 }
 

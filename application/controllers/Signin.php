@@ -36,8 +36,8 @@ class Signin extends CI_Controller {
     		$json_arr = json_decode($json_obj);
     		
     		if(!empty($json_arr->access_token)) {
-	    		//setting token session
-	    		$this->start_token_session($json_arr->access_token);
+                //setting token & password session
+	    		$this->start_token_session($json_arr->access_token, $params['password']);
 	    		$response = array('status' => 1, 'message' => 'Anda berhasil Sign in!');
 	    	}
 	    	else {
@@ -47,12 +47,13 @@ class Signin extends CI_Controller {
     	echo json_encode($response);
     }
 
-    private function start_token_session($token='') {
+    private function start_token_session($token='', $password) {
     	$result = FALSE;
     	if($token!='') {
     		//saving user's token
+            $enc_pass = warpmc_encrypt($password, WARP_ENC_KEY);
     		$enc_token = warpmc_encrypt($token, WARP_ENC_KEY);
-    		$session_data = array('access_token' => $enc_token);
+    		$session_data = array('access_token' => $enc_token, 'pass' => $enc_pass);
     		$set_session = $this->session->set_userdata($session_data);
     		$result = TRUE;
     	}

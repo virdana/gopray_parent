@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <?php include "head.php" ?>
+    
     <body>
         <div class="admin-container animated right">
             
@@ -170,58 +171,121 @@
                         
                         <div class="col-sm-8 col-md-9 detail-content">
                             <div class="panel panel-default panel-timeline panel-circle">
-                                <form class="circle-form">
+                                <form id="messageForm" class="circle-form">
                                     <div class="media media-timeline">
                                         <div class="media-left">
                                             <a href="#">
-                                                <?php $profile_picture = !empty($data_parent->profile_picture) ? $data_parent->profile_picture : 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png'?>
-                                                <img class="media-object" src="<?php echo $profile_picture?>" width="50" height="50" alt="Go Pray User Photo Profile">
+                                                <img class="media-object" src="<?php echo $data_parent->profile_picture?>" width="50" height="50" alt="Go Pray User Photo Profile">
                                             </a>
                                         </div>
                                         <div class="media-body circle-body">
-                                            <div class="form-group circle-for">
+                                            <!-- <div class="form-group circle-for">
                                                 <span class="pointer">Untuk </span>
-                                                <input type="text" class="form-control awesomplete" list="circleList" placeholder="">
-                                                <datalist id="circleList">
-                                                    <option>tidak ada</option>
-                                                    <?php foreach($data_kerabat as $key => $kerabat) { ?>
-                                                    <option><?php echo $kerabat->email?></option>
-                                                    <?php } ?>
-                                                </datalist>
+                                                <input type="text" class="form-control" placeholder="">
+                                            </div> -->
+                                            <div class="form-group circle-message">
+                                                <textarea class="form-control" placeholder="Tulis pesan disini" id="textMessage"></textarea>
                                             </div>
                                             <div class="form-group circle-message">
-                                                <textarea class="form-control" placeholder="Tulis pesan disini"></textarea>
+                                                <input type="hidden" id="postMessageType" value="100">
+                                                <hr class="circle-separator">
+                                                <img src="" id="imgUploadPreview" class="img-thumbnail" style="max-height:120px;">
                                             </div>
                                         </div>
+                                        
+                                        <div class="circle-body daily-message">
+                                            <div class="form-group circle-for circle-tab-container">
+                                                <ul class="nav nav-tabs circle-tab" role="tablist">
+                                                    <li role="presentation" class="active"><a href="#text" aria-controls="text" role="tab" data-toggle="tab">Text Only</a></li>
+                                                    <!-- <li role="presentation"><a href="#random" aria-controls="random" role="tab" data-toggle="tab">Random Image</a></li> -->
+                                                    <li role="presentation"><a href="#upload" aria-controls="upload" role="tab" data-toggle="tab">Upload Image</a></li>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div role="tabpanel" class="tab-pane active" id="text">
+                                                        <div class="form-group circle-message">
+                                                            <div class="free-text">
+                                                                <textarea name="text_only" id="textOnly" class="form-control" placeholder="Tulis pesan disini"></textarea>
+                                                            </div>
+                                                            <div class="text-form">
+                                                                <button type="button" name="submittext" class="btn btn-green" id="btnTxtOnly">Done</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div role="tabpanel" class="tab-pane" id="random">
+                                                        <div class="form-group circle-message">
+                                                            <p>Coming soon</p>
+                                                        </div>
+                                                    </div>
+                                                    <div role="tabpanel" class="tab-pane" id="upload">
+
+                                                        <div class="circle-upload">
+                                                            <div class="form-group">
+                                                                <label class="control-label label-grey">Top Text</label>
+                                                            </div>
+                                                            <hr class="circle-separator">
+                                                            <div class="form-group">
+                                                                <input type="text" name="text_upload" class="form-control" id="textUploadImg" placeholder="Tulis pesan disini">
+                                                            </div>
+                                                            <hr class="circle-separator">
+                                                            <div class="form-group">
+                                                                <label class="control-label label-green">Preview</label>
+                                                            </div>
+                                                        </div>
+                                                        <hr class="circle-separator">
+                                                        <div id="fileImgUploadContainer" class="form-group upload-btn">
+                                                            <input id="fileImgUpload" name="img_upload" type="file">
+                                                            <button type="submit" id="btnUploadImg" class="btn btn-green btn-done">Done</button>
+                                                        </div>
+                                                    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="free-text-white"></div>
+                                        
                                     </div>
                                     <div class="circle-button">
-                                        <button class="btn btn-white">
+                                        <button class="btn btn-white" style="visibility: hidden;">
                                             <span class="fa fa-camera"></span> Pray Daily
                                         </button>
-                                        <input type="submit" class="btn btn-green pull-right" value="Post">
+                                        <button type="submit" id="btnPost" class="btn btn-green pull-right">Post</button>
                                     </div>
                                 </form>
                             </div>
                             
+                            <div id="circleTimeline">
+                            <?php foreach($data_message as $message) { ?>
                             <div class="panel panel-default panel-timeline circle-timeline">
                                 <div class="media media-timeline">
                                     <div class="media-left">
                                         <a href="#">
-                                            <img class="media-object" src="<?php echo URL_IMG?>photos/bitmap.png" width="50" height="50" alt="Go Pray User Photo Profile">
+                                            <img class="media-object messageImg" src="<?php echo $message->kerabat->foto?>" onerror="imageLoadError(this);" width="50" height="50" alt="Go Pray User Photo Profile">
                                         </a>
                                     </div>
                                     <div class="media-body">
-                                        <h4 class="media-heading">Allie Carson</h4>
-                                        <p class="media-time">09.10 a.m</p>
+                                        <h4 class="media-heading"><?php echo $message->kerabat->nama?></h4>
+                                        <p class="media-time">
+                                            <?php if(date('Y-m-d') == $message->tanggal) { 
+                                                echo date('h:i A', strtotime($message->jam));
+                                            }
+                                            else {
+                                                echo date('d-M-Y h:i A', strtotime($message->tanggal.' '.$message->jam));
+                                            }
+                                            ?>
+                                        </p>
                                     </div>
                                 </div>
                                 <p class="timeline-detail">
-                                    The last time you had a cheeseburger was too long ago. Try not to drool when you think about the slightly 
-                                    charred, medium-rare meat nestled between soft brioche, cradled in crisp iceberg lettuce and flavour 
-                                    amplifying condiments. Why are you still reading this- go get a cheeseburger.
+                                    <?php echo $message->pesan?>
+                                    <?php if ($message->gambar != "nothing") { ?>
+                                    <img src="<?php echo $message->gambar?>" width="659" height="581" alt="Go Pray Circle Picture" class="img-responsive">
+                                    <?php } ?>
                                 </p>
                             </div>
-                            
+                            <?php } ?>
+                            </div>
+
                             <div class="panel panel-default panel-timeline circle-timeline">
                                 <div class="media media-timeline">
                                     <div class="media-left">
@@ -235,25 +299,7 @@
                                     </div>
                                 </div>
                                 <p class="timeline-detail">
-                                    The last time you had a cheeseburger was too long ago. Try not to drool when you think about the slightly 
-                                    charred, medium-rare meat nestled between soft brioche, cradled in crisp iceberg lettuce and flavour 
-                                    amplifying condiments. Why are you still reading this- go get a cheeseburger.
-                                </p>
-                            </div>
-                            
-                            <div class="panel panel-default panel-timeline circle-timeline">
-                                <div class="media media-timeline">
-                                    <div class="media-left">
-                                        <a href="#">
-                                            <img class="media-object" src="<?php echo URL_IMG?>photos/user-5.png" width="50" height="50" alt="Go Pray User Photo Profile">
-                                        </a>
-                                    </div>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">Kenneth Santiago</h4>
-                                        <p class="media-time">09.10 a.m</p>
-                                    </div>
-                                </div>
-                                <p class="timeline-detail">
+                                    The last time you had a cheeseburger was too long ago
                                     <img src="<?php echo URL_IMG?>thumbnails/praycircle/picture-1.png" width="659" height="581" alt="Go Pray Circle Picture" class="img-responsive">
                                 </p>
                             </div>
@@ -284,8 +330,6 @@
                                 <?php } ?>
                             <?php } ?>
                         </div>
-                        
-                    </div>
                 </section>
                 
             </div>
@@ -295,32 +339,26 @@
         <footer></footer>
         <?php include "foot.php" ?>
         
+        <!-- Javascript -->
         <script type="text/javascript">
-            var owl = $('.owl-carousel');
-            owl.owlCarousel({
-                nav: true,
-                navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
-                dots: false,
-                margin: 20,
-                autoHeight: true,
-                autoHeightClass: 'owl-height',
-                responsiveClass:true,
-                responsive:{
-                    0:{ items:1 },
-                    400:{ items:2 },
-                    600:{ items:3 },
-                    1200:{ items:6 }
-                }
-            });
+            var jsonMessage = <?php echo json_encode($data_message)?>;
+            // console.log(jsonMessage);
+            loadMessage(jsonMessage);
+
+            function loadMessage(jsonData) {
+            }
+
+            function imageLoadError(elem) {
+                d = new Date();
+                $(elem).attr('src', 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png?'+d.getTime());
+            }
         </script>
         
         <!-- Dial Panel Toggle Button -->
         <script type="text/javascript">
             $(document).ready(function() {
                 var action = 1;
-
                 $("[data-toggle=offcanvas]").on("click", viewSomething);
-
                 function viewSomething() {
                     if ( action == 1 ) {
                         $('.right').addClass('active');
@@ -343,5 +381,169 @@
             });
         </script>
         
+        <!-- Upload Image Tab Content -->
+        <script type="text/javascript">
+            $("#fileImgUpload").fileinput({
+                showUpload: false,
+                showCaption: false,
+                browseIcon: '<i class="fa fa-camera"></i>&nbsp;',
+                browseClass: "btn btn-white",
+                removeClass: "btn btn-green",
+                browseLabel: 'Upload Photo',
+                fileType: "image",
+                allowedFileTypes: "image",
+                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+            });            
+        </script>
+        
+        <!-- Event to show focused timeline text -->
+        <script type="text/javascript">
+            $("#textMessage").on("click, focus", function(){
+                $(".free-text-white").fadeIn();
+                $(".daily-message").fadeIn();
+                $("#textOnly").focus();
+            });
+
+            $(".free-text-white").on("click", function(){
+                $(".free-text-white").fadeOut();
+                $(".daily-message").fadeOut();
+            });
+        </script>
+        
+        <!-- Event for want to post action -->
+        <script type="text/javascript">
+            $("#btnTxtOnly").on("click", function(){
+                var textOnly = $("#textOnly").val() || '';
+
+                if(textOnly != '') {
+                    $('#postMessageType').val('1'); //code for text only
+                    $('#textMessage').val(textOnly);
+                    $(".free-text-white").fadeOut();
+                    $(".daily-message").fadeOut();
+                } else {
+                    $('#textOnly').tooltip({
+                        'trigger': 'focus', 
+                        'placement': 'left',
+                        'title': 'Silahkan tulis pesan anda'
+                    });
+                    $("#textOnly").focus();   
+                }
+            });
+
+            $("#btnUploadImg").on("click", function(e){
+                e.preventDefault();
+                var textUploadImg = $("#textUploadImg").val() || '';
+                var src = $('#fileImgUploadContainer .krajee-default .kv-file-content img').attr('src') || '';
+                
+                if(textUploadImg != '') {
+                    $('#postMessageType').val('2'); //code for text & image
+                    $('#imgUploadPreview').attr('src', src);
+                    $('#textMessage').val(textUploadImg);
+                    $(".free-text-white").fadeOut();
+                    $(".daily-message").fadeOut();
+                } else {
+                    $('#textUploadImg').tooltip({
+                        'trigger': 'focus', 
+                        'placement': 'left',
+                        'title': 'Silahkan tulis pesan anda'
+                    });
+                    $("#textUploadImg").focus();   
+                }
+            });
+
+            $('#btnPost').on('click', function(e) {
+                e.preventDefault();
+
+                doSubmit();
+            });
+
+            function doSubmit() {
+                var postMessageType = $('#postMessageType').val();
+                if(postMessageType != 0) {
+                    var allowSubmit = true;
+                    var data = new FormData();
+                    data.append('access_token', "<?php echo warpmc_decrypt($_SESSION['access_token'], WARP_ENC_KEY)?>" );
+                    // var data = new FormData($('#messageForm')[0]);
+                    
+                    switch(postMessageType) {
+                        case '1': //text only
+                            data.append('pesan', $('#textOnly').val());
+                            break;
+                        case '2':
+                            data.append('pesan', $('#textUploadImg').val());
+                            data.append('gambar', $('#fileImgUpload')[0].files[0]);
+                            break;
+                        default:
+                            allowSubmit = false;
+                            $.alert('DEFAULT CASE');
+                            break;
+                    }
+
+                    if(allowSubmit === true) {
+                        var defaultHtml = $('#btnPost').html();
+                        $.ajax({
+                            url: "https://cors-anywhere.herokuapp.com/" + "<?php echo REST_URL.'master/pesan'?>",
+                            type: 'POST',
+                            data: data,
+                            dataType: 'json',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            beforeSend: function() {
+                                $('#btnPost').html('Mengirim...');
+                                $('#btnPost').prop('disabled', true);
+                            },
+                            success: function(response, status) {
+                                console.log(response);
+                                $('#btnPost').html(defaultHtml);
+                                $('#btnPost').prop('disabled', false);
+                                get_messages();
+                            },
+                            error: function(jqXhr, message, errorTrhrown) {
+                                console.log(message);
+                                $('#btnPost').html(defaultHtml);
+                                $('#btnPost').prop('disabled', false);
+                            }
+                        });
+                    }
+                }
+            }
+
+            function get_messages() {
+                var data = [];
+                var html = '';
+                $.ajax({
+                    url: "<?php echo base_url()?>" + 'pray_circle/json_get_message',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        if(response.status == 1) {
+                            data = response.data;
+                            console.log(data);
+
+                            html = '<div class="panel panel-default panel-timeline circle-timeline">'
+                                + '<div class="media media-timeline">'
+                                    + '<div class="media-left"> <a href="#">'
+                                        + '<img class="media-object messageImg" src="'+ data.kerabat.foto +'" onerror="imageLoadError(this);" width="50" height="50" alt="Go Pray User Photo Profile"> </a>'
+                                    + '</div>'
+                                    + '<div class="media-body">'
+                                        + '<h4 class="media-heading">'+ data.kerabat.nama +'</h4>'
+                                        + '<p class="media-time">'+ data.jam +'</p>'
+                                    + '</div>'
+                                + '</div>'
+                                + '<p class="timeline-detail">'
+                                    + data.pesan 
+                                    + '<img src="'+ data.gambar +'" width="659" height="581" alt="Go Pray Circle Picture" class="img-responsive"> </p>'
+                                + '</div>';
+                            $('#circleTimeline').prepend(html).fadeIn('slow');
+                        } else {
+                            console.log('Gagal mengambil data message!');
+                        }
+                    }
+                });
+                return data;
+            }
+        </script>
+        
     </body>
-</html>
+</html> 
