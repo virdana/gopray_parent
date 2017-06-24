@@ -9,11 +9,11 @@
                 if($data_parent->profile_picture != 'null') { $avatar_url = $data_parent->profile_picture; }    
             }
         ?>
-            <img src="<?php echo $avatar_url?>" width="149" height="149" alt="Go Pray Parent Profile" class="img-circle">
+            <img id="profileFoto" src="<?php echo $avatar_url?>" width="149" height="149" alt="Go Pray Parent Profile" class="img-circle">
             <a href="<?php echo base_url()?>update_profil" class="edit-profile" data-toggle="tooltip" data-placement="bottom" title="Ubah Profil"></a>
         </div>
-        <p class="name"><?php echo isset($data_parent->nama) ? $data_parent->nama : 'John Doe'?></p>
-        <p class="status"><?php echo isset($data_parent->kerabat) ? $data_parent->kerabat : ''?></p>
+        <p id="profileNama" class="name"><?php echo isset($data_parent->nama) ? $data_parent->nama : 'John Doe'?></p>
+        <p id="profileKerabat" class="status"><?php echo isset($data_parent->kerabat) ? $data_parent->kerabat : ''?></p>
     </div>
     <div class="list-menu">
         <ul class="nav nav-pills nav-stacked">

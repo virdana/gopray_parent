@@ -72,7 +72,9 @@ class Update_profil extends CI_Controller {
                 /* POSTING INTO REST SERVER */
         		$response = $this->post_data_parent($active_token, $data_upload, $data_post);
                 if($response->return == TRUE) {
-                    $result = array('status' => 1, 'message' => 'Profil berhasil diupdate!');
+                    //fill data parent untuk reload sidebar info
+                    $data_parent = $this->get_parent_info($active_token);
+                    $result = array('status' => 1, 'message' => 'Profil berhasil diupdate!', 'data' => $data_parent);
                 } else {
                     $result = array('status' => 0, 'message' => 'Terjadi kesalahan dalam proses update!');
                 }

@@ -285,25 +285,6 @@
                             </div>
                             <?php } ?>
                             </div>
-
-                            <div class="panel panel-default panel-timeline circle-timeline">
-                                <div class="media media-timeline">
-                                    <div class="media-left">
-                                        <a href="#">
-                                            <img class="media-object" src="<?php echo URL_IMG?>photos/user-5.png" width="50" height="50" alt="Go Pray User Photo Profile">
-                                        </a>
-                                    </div>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">Kenneth Santiago</h4>
-                                        <p class="media-time">09.10 a.m</p>
-                                    </div>
-                                </div>
-                                <p class="timeline-detail">
-                                    The last time you had a cheeseburger was too long ago
-                                    <img src="<?php echo URL_IMG?>thumbnails/praycircle/picture-1.png" width="659" height="581" alt="Go Pray Circle Picture" class="img-responsive">
-                                </p>
-                            </div>
-                            
                         </div>
                         
                         <div class="col-sm-4 col-md-3 detail-rightmenu hidden-xs">
@@ -519,7 +500,8 @@
                     success: function(response) {
                         if(response.status == 1) {
                             data = response.data;
-                            console.log(data);
+                            // Formatting date/time
+                            var jam = timeFormatter(data.tanggal+ ' ' +data.jam);
 
                             html = '<div class="panel panel-default panel-timeline circle-timeline">'
                                 + '<div class="media media-timeline">'
@@ -528,20 +510,36 @@
                                     + '</div>'
                                     + '<div class="media-body">'
                                         + '<h4 class="media-heading">'+ data.kerabat.nama +'</h4>'
-                                        + '<p class="media-time">'+ data.jam +'</p>'
+                                        + '<p class="media-time">'+ jam +'</p>'
                                     + '</div>'
                                 + '</div>'
                                 + '<p class="timeline-detail">'
-                                    + data.pesan 
-                                    + '<img src="'+ data.gambar +'" width="659" height="581" alt="Go Pray Circle Picture" class="img-responsive"> </p>'
-                                + '</div>';
-                            $('#circleTimeline').prepend(html).fadeIn('slow');
+                                    + data.pesan;
+                                    if(data.gambar != 'nothing') {
+                                        html += '<img src="'+ data.gambar +'" width="659" height="581" alt="Go Pray Circle Picture" class="img-responsive"> </p>';
+                                        }
+                                html += '</div>';
+                            
+                            $(html).hide().prependTo('#circleTimeline').slideDown('slow');
                         } else {
                             console.log('Gagal mengambil data message!');
                         }
                     }
                 });
                 return data;
+            }
+
+            function timeFormatter(dateTime){
+                var date = new Date(dateTime);
+                if (date.getHours() >= 12){
+                    var hour = parseInt(date.getHours()) - 12;
+                    var amPm = "PM";
+                } else {
+                    var hour = date.getHours(); 
+                    var amPm = "AM";
+                }
+                var time = hour + ":" + date.getMinutes() + " " + amPm;
+                return time;
             }
         </script>
         

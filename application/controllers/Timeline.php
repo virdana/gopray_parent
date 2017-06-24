@@ -67,9 +67,9 @@ class Timeline extends CI_Controller {
     			);
 
 
-    		echo "<pre>";
+    		/*echo "<pre>";
             print_r($data['data_parent']);
-    		echo "</pre>";
+    		echo "</pre>";*/
             /*echo $json_obj;
             echo "<br>";
             print_r($data['data_kerabat']);*/

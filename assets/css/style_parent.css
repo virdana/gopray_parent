@@ -524,6 +524,7 @@ ul{
     -webkit-box-shadow: none;
     box-shadow: none;
     padding: 20px 30px 20px 30px;
+    height: 100%; /* My addition */
 }
 
 /* --- Top Navigation Menu --- */
@@ -818,7 +819,9 @@ ul{
     margin-right: 0;
 }
 .admin-content .detail-content{
+    /* My addition */
     height: auto;
+    min-height: 700px;
     background: #eef5f5;
     padding: 20px;
     border-right: 1px solid #e0e1eD;

@@ -13,7 +13,8 @@
             }
             .kv-avatar .file-input {
                 display: table-cell;
-                max-width: 220px;
+                /*max-width: 260px;*/
+                /*height: auto;*/
             }
             .kv-reqd {
                 color: red;
@@ -254,9 +255,10 @@
                 removeTitle: 'Cancel or reset changes',
                 elErrorContainer: '#fotoAlert',
                 msgErrorClass: 'alert alert-block alert-danger small',
-                defaultPreviewContent: '<img src="<?php echo $avatar_url?>" alt="Your Avatar" style="height:200px"><h6 class="text-muted">Click to select</h6>',
+                defaultPreviewContent: '<img src="<?php echo $avatar_url?>" alt="Your Avatar" style="max-width:240px;"><h6 class="text-muted">Click to select</h6>',
+                // defaultPreviewContent: '<img src="<?php echo $avatar_url?>" alt="Your Avatar" style="width:260px; height:auto;"><h6 class="text-muted">Click to select</h6>',
                 /*previewSettings: {
-                    image: {width: "auto", height: "200px"}
+                    image: {width: "260px", height: "auto"}
                 },*/
                 layoutTemplates: {main2: '{preview} {remove} {browse}'},
                 allowedFileExtensions: ["jpg", "png", "gif"]
@@ -316,10 +318,13 @@
                         $('#btnSubmit').html('Menyimpan...');
                     },
                     success: function(response, status){
-                        console.log(response);
+                        // console.log(response);
                         $('#btnSubmit').prop('disabled', false);
                         $('#btnSubmit').html(defaultHtml);
                         if(response.status == 1) {
+                            $('#profileNama').text(response.data.nama);
+                            $('#profileKerabat').text(response.data.kerabat);
+                            $('#profileFoto').attr('src', response.data.profile_picture);
                             $.alert({
                                     theme: 'bootstrap',
                                     type: 'green',
@@ -356,7 +361,6 @@
                         console.log(status);
                         $('#btnSubmit').prop('disabled', false);
                         $('#btnSubmit').html(defaultHtml);
-                    
                     },
                 });
             };
