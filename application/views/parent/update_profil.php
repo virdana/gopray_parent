@@ -322,6 +322,7 @@
                         $('#btnSubmit').prop('disabled', false);
                         $('#btnSubmit').html(defaultHtml);
                         if(response.status == 1) {
+                            //Updating sidebar profile info
                             $('#profileNama').text(response.data.nama);
                             $('#profileKerabat').text(response.data.kerabat);
                             $('#profileFoto').attr('src', response.data.profile_picture);
@@ -363,6 +364,7 @@
                         $('#btnSubmit').html(defaultHtml);
                     },
                 });
+                $('#password').val('');
             };
         </script>
         
