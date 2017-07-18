@@ -169,27 +169,8 @@
                             <?php } ?>                            
                         </div>
                         
-                        <div class="col-sm-8 col-md-9 detail-content">
-                            <?php if(isset($list_timeline)) {
-                                foreach ($list_timeline as $timeline) {
-                                ?>
-                                <div class="panel panel-default panel-timeline lazy">
-                                    <div class="media media-timeline">
-                                        <div class="media-left">
-                                            <a href="#">
-                                                <img class="media-object" src="<?php echo $timeline['foto']?>" width="40" height="41" alt="Go Pray User Photo Profile">
-                                            </a>
-                                        </div>
-                                        <div class="media-body">
-                                            <h4 class="media-heading"><?php echo $timeline['info']?></h4>
-                                            <p class="media-time"><?php echo $timeline['time']?></p>
-                                        </div>
-                                    </div>
-                                    <!-- <p class="timeline-detail"> Detail </p> -->
-                                </div>        
-                                    <?php
-                                }
-                            } ?>
+                        <div id="timelineContainer" class="col-sm-8 col-md-9 detail-content">
+                            
                         </div>
                         
                         <div class="col-sm-4 col-md-3 detail-rightmenu hidden-xs">
@@ -305,6 +286,34 @@
 
         <script type="text/javascript">
             // put this page's specific js here
+            
+            var listTimeline = <?php echo json_encode($list_timeline)?>;
+
+            function loadTimeline(jsonData) {
+                var html = '<p class="text-center text-muted">Tidak ada aktivitas</p>';
+                if(jsonData.length > 0) {
+                    html = '';
+                    $.each(jsonData, function(i) {
+                        html = '<div class="panel panel-default panel-timeline">'
+                            + '<div class="media media-timeline">'
+                                + '<div class="media-left">'
+                                    + '<a href="#">'
+                                        + '<img class="media-object" src="'+ jsonData[i].foto +'" width="40" height="41" alt="Go Pray User Photo Profile">'
+                                        + '</a>'
+                                    + '</div>'
+                                    + '<div class="media-body">'
+                                        + '<h4 class="media-heading">'+ jsonData[i].info +'</h4>'
+                                        + '<p class="media-time">'+ jsonData[i].time +'</p>'
+                                    + '</div>'
+                                + '</div>'
+                            +'</div>';
+                        $(html).hide().appendTo('#timelineContainer').slideDown('slow').delay('1000');
+                    });
+                    console.log('appendData.length: '+jsonData.length);
+                    console.log($('#timelineContainer > div').length);
+                }
+            }
+            
             function showSummary(elem) {
                 var id = $(elem).data('value') || '';
                 var nama = $(elem).html();
@@ -392,8 +401,34 @@
             }
 
             $(document).ready(function() {
+                //first fill timeline
+                var topTimeline = listTimeline.slice(0, 10);
+                loadTimeline(topTimeline);
+
                 //initializing lazyload for timeline
-                
+                var $container = $("#timelineContainer");
+                var dataLength = listTimeline.length; // numbers of initial data length
+                console.log('dataLength = '+dataLength);
+
+                $(window).lazyScrollLoading({
+                    onScrollToBottom : function(e, $lazyItems) {
+                        var appendData = [];
+                        var toLoad = 10; // numbers of data to load
+                        var loadedLength = $('#timelineContainer > div').length; //numbers of loaded data
+                        console.log('loadedLength = '+loadedLength);
+
+                        if((dataLength - loadedLength) < toLoad) {
+                            toLoad = (dataLength - loadedLength);
+                        }
+                        for(i=loadedLength; i<(loadedLength + toLoad);  i++) {
+                            // console.log(i + '<br>');
+                            appendData.push(listTimeline[i]);
+                        }
+                        // $container.append($("<li>New Lazy Item</li>"));
+                        loadTimeline(appendData);
+                    }
+                });
+                            
 
                 //triggering summary at first launch
                 $('#selectSummary li:first-child a').trigger('click');

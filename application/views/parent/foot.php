@@ -12,6 +12,7 @@
 <script type="text/javascript" src="<?php echo URL_PLUGIN?>highcharts-5.0.12/js/themes/grid-light.js"></script>
 <script type="text/javascript" src="<?php echo URL_PLUGIN?>awesomplete/awesomplete.min.js"></script>
 <!-- <script type="text/javascript" src="<?php echo URL_PLUGIN?>jquery.lazy-1.7.4/jquery.lazy.min.js"></script> -->
+<script type="text/javascript" src="<?php echo URL_PLUGIN?>jquery.lazyscrollloading-0.4.7/jquery.lazyscrollloading.js"></script>
 
 <!-- Bootstrap Tooltip Script -->
 <script>
