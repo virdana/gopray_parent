@@ -402,8 +402,8 @@
 
             $(document).ready(function() {
                 //first fill timeline
-                var topTimeline = listTimeline.slice(0, 10);
-                loadTimeline(topTimeline);
+                var firstLoad = listTimeline.slice(0, 10);
+                loadTimeline(firstLoad);
 
                 //initializing lazyload for timeline
                 var $container = $("#timelineContainer");

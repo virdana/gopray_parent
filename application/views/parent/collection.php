@@ -179,22 +179,22 @@
                                                     <div class="infotrophy-list">
                                                         <span class="table-trophy bronze-trophy"></span>
                                                         <p>Bronze Trophy</p>
-                                                        <p class="pull-right">0 - 500 Poin</p>
+                                                        <p class="pull-right">500 - 1000 Poin</p>
                                                     </div>
                                                     <div class="infotrophy-list">
                                                         <span class="table-trophy silver-trophy"></span>
-                                                        <p>Bronze Trophy</p>
-                                                        <p class="pull-right">0 - 500 Poin</p>
+                                                        <p>Silver Trophy</p>
+                                                        <p class="pull-right">1001 - 1500 Poin</p>
                                                     </div>
                                                     <div class="infotrophy-list">
                                                         <span class="table-trophy gold-trophy"></span>
-                                                        <p>Bronze Trophy</p>
-                                                        <p class="pull-right">0 - 500 Poin</p>
+                                                        <p>Gold Trophy</p>
+                                                        <p class="pull-right">1501 - 2000 Poin</p>
                                                     </div>
                                                     <div class="infotrophy-list">
                                                         <span class="table-trophy platinum-trophy"></span>
-                                                        <p>Bronze Trophy</p>
-                                                        <p class="pull-right">0 - 500 Poin</p>
+                                                        <p>Platinum Trophy</p>
+                                                        <p class="pull-right">> 2000 Poin</p>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -206,14 +206,19 @@
                                 </div>
                                 
                                 <div class="collection-overview">
-                                    <h2 class="collection-congrat">Selamat! <span class='trophyName'>Nama</span> Mendapatkan Gold Trophy</h2>
-                                    <img src="<?php echo URL_IMG?>icons/trophy.png" width="120" height="120" alt="Go Pray Parent Trophy" class="img-responsive icon-trophy">
-                                    <p class="collection-poin">1450 Poin</p>
-                                    <p class="table-title">Berikut adalah daftar Trophy yang diperoleh <span class='trophyName'>Nama</span> tiap periode dengan jumlah poinya :</p>
+                                    <h2 id="congratTrophy" class="collection-congrat">
+                                        <span class='trophyName'></span> Koleksi Trophy
+                                    </h2>
+                                    <img id="currentImgTrophy" src="<?php echo URL_IMG?>icons/trophy-0.png" width="120" height="120" alt="Go Pray Parent Trophy" class="img-responsive icon-trophy">
+                                    <p class="collection-poin"><span id="currentPoin">0</span> Poin</p>
+                                    <p class="table-title">Berikut adalah daftar Trophy yang diperoleh <span class='trophyName'></span> tiap periode dengan jumlah poinya :</p>
                                 </div>
                                 
                                 <div class="table-responsive bank-donate table-collection">
-                                    <table class="table table-striped">
+                                    <div id="loadingContainer" class="center-block text-center" style="display:none; margin:20px;">
+                                        <img src="<?php echo URL_IMG?>loading.svg" alt='Loading...' style='vertical-align: middle;'>
+                                    </div>
+                                    <table id="collectionTable" class="table table-striped">
                                         <thead>
                                             <tr>
                                                 <th>Periode</th>
@@ -221,36 +226,9 @@
                                                 <th>Poin</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Januari 2016</td>
-                                                <td class="trophy-icon"><span class="table-trophy gold-trophy"></span></td>
-                                                <td>1250</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Februari 2016</td>
-                                                <td class="trophy-icon"><span class="table-trophy silver-trophy"></span></td>
-                                                <td>640</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Maret 2016</td>
-                                                <td class="trophy-icon"><span class="table-trophy gold-trophy"></span></td>
-                                                <td>1350</td>
-                                            </tr>
-                                            <tr>
-                                                <td>April 2016</td>
-                                                <td class="trophy-icon"><span class="table-trophy silver-trophy"></span></td>
-                                                <td>740</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mei 2016</td>
-                                                <td class="trophy-icon"><span class="table-trophy gold-trophy"></span></td>
-                                                <td>1230</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Juni 2016</td>
-                                                <td class="trophy-icon"><span class="table-trophy gold-trophy"></span></td>
-                                                <td>1120</td>
+                                        <tbody id="collectionContainer">
+                                            <tr class="active text-center">
+                                                <td colspan="3">Belum ada trophy</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -285,8 +263,66 @@
                     // $('#trophyList-'+id).fadeIn();
                     $('.trophyName').html(nama);
                     $('#btnTrophyText').html(nama);
+                    getCollection(id);
                 } else {
                     console.log('ShowTrophy id not found!');
+                }
+            }
+
+            function getCollection(id='') {
+                var defaultHtml = $
+                if(id != '') {
+                    $.ajax({
+                        url: "<?php echo base_url()?>" + 'collection/get_trophy',
+                        data: { idUser: id },
+                        type: 'GET',
+                        dataType: 'JSON',
+                        beforeSend: function() {
+                            $('#collectionTable').hide();
+                            $('#loadingContainer').fadeIn();
+                        },
+                        success: function(response, status) {
+                            // console.log(response);
+                            loadCollection(response.data);
+                            $('#loadingContainer').hide();
+                            $('#collectionTable').fadeIn();
+                        },
+                        error: function(jqXhr, message, errorThrown) {
+                            console.log(message);
+                            $('#loadingContainer').hide();
+                            $('#collectionTable').fadeIn();
+                        },
+                    });
+                }
+            }
+
+            function loadCollection(jsonData) {
+                var html = '<p class="text-center">Belum ada aktivitas</p>';
+                var trophy = '';
+                var imgSrc = '';
+                var nama = $('#btnTrophy').text();
+                if(jsonData.length > 0) {
+                    
+                    if(jsonData[1].point > 500) {
+                        trophy = '<span class="trophyName">'+ nama +'</span> telah mendapatkan '+ jsonData[1].color +' trophy';
+                        imgSrc = "<?php echo URL_IMG?>" + 'icons/trophy1-'+ jsonData[1].color +'.png';
+                    }
+                    else {
+                        trophy = '<span class="trophyName">'+ nama +'</span> belum mendapatkan trophy';
+                        imgSrc = "<?php echo URL_IMG?>" + 'icons/trophy-0.png';
+                    }
+                    $('#congratTrophy').html(trophy);
+                    $('#currentPoin').html(jsonData[0].point);
+                    $('#currentImgTrophy').attr('src', imgSrc);
+
+                    $.each(jsonData, function(i) {
+                        html += '<tr>'
+                                    + '<td>'+ jsonData[i].month +'</td>'
+                                    + '<td class="trophy-icon"><span class="table-trophy '+jsonData[i].color+'-trophy"></span></td>'
+                                    + '<td>'+ jsonData[i].point +'</td>'
+                                + '</tr>';
+                    });
+                    $('#collectionContainer').html(html).hide().fadeIn('slow');
                 }
             }
         </script>

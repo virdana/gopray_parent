@@ -1,4 +1,8 @@
 <!-- include this page inside <body> tag -->
+<?php 
+    $page = $this->uri->segment(1) ? $this->uri->segment(1) : '';
+    /*echo "<pre>"; print_r($page); echo "</pre>";*/
+?>
 
 <div class="admin-leftmenu left">
     <div class="user-profile">
@@ -17,13 +21,19 @@
     </div>
     <div class="list-menu">
         <ul class="nav nav-pills nav-stacked">
-            <li class="active"><a href="<?php echo base_url()?>timeline"><span class="fa fa-circle"></span> Timeline</a></li>
-            <li><a href="<?php echo base_url()?>pray_circle"><span class="fa fa-circle"></span> Pray Circle</a></li>
-            <li><a href="<?php echo base_url()?>sticker"><span class="fa fa-circle"></span> Sticker</a></li>
-            <li><a href="<?php echo base_url()?>donate"><span class="fa fa-circle"></span> Donate</a></li>
-            <li><a href="<?php echo base_url()?>collection"><span class="fa fa-circle"></span> Collection</a></li>
+            <li class="<?php echo ($page=='timeline') ? 'active' : ''?>">
+                <a href="<?php echo base_url()?>timeline"><span class="fa fa-circle"></span> Timeline</a></li>
+            <li class="<?php echo ($page=='pray_circle') ? 'active' : ''?>">
+                <a href="<?php echo base_url()?>pray_circle"><span class="fa fa-circle"></span> Pray Circle</a></li>
+            <li class="<?php echo ($page=='collection') ? 'active' : ''?>">
+                <a href="<?php echo base_url()?>collection"><span class="fa fa-circle"></span> Collection</a></li>
+            <li class="<?php echo ($page=='sticker') ? 'active' : ''?>">
+                <a href="<?php echo base_url()?>sticker"><span class="fa fa-circle"></span> Sticker</a></li>
+            <li class="<?php echo ($page=='donate') ? 'active' : ''?>">
+                <a href="<?php echo base_url()?>donate"><span class="fa fa-circle"></span> Donate</a></li>
             <!-- <?php echo base_url()?>signout/do_signout -->
-            <li class="admin-logout"><a href="<?php echo base_url()?>signout/do_signout" onclick="doSignout(event);"><span class="fa fa-circle"></span> Logout</a></li>
+            <li class="admin-logout">
+                <a href="<?php echo base_url()?>signout/do_signout" onclick="doSignout(event);"><span class="fa fa-circle"></span> Logout</a></li>
         </ul>
     </div>
 </div>

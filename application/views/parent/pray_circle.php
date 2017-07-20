@@ -219,10 +219,10 @@
                                                     <div role="tabpanel" class="tab-pane" id="upload">
 
                                                         <div class="circle-upload">
-                                                            <div class="form-group">
+                                                            <!-- <div class="form-group">
                                                                 <label class="control-label label-grey">Top Text</label>
                                                             </div>
-                                                            <hr class="circle-separator">
+                                                            <hr class="circle-separator"> -->
                                                             <div class="form-group">
                                                                 <input type="text" name="text_upload" class="form-control" id="textUploadImg" placeholder="Tulis pesan disini">
                                                             </div>
@@ -254,37 +254,7 @@
                                 </form>
                             </div>
                             
-                            <div id="circleTimeline">
-                            <?php foreach($data_message as $message) { ?>
-                            <div class="panel panel-default panel-timeline circle-timeline">
-                                <div class="media media-timeline">
-                                    <div class="media-left">
-                                        <a href="#">
-                                            <img class="media-object messageImg" src="<?php echo $message->kerabat->foto?>" onerror="imageLoadError(this);" width="50" height="50" alt="Go Pray User Photo Profile">
-                                        </a>
-                                    </div>
-                                    <div class="media-body">
-                                        <h4 class="media-heading"><?php echo $message->kerabat->nama?></h4>
-                                        <p class="media-time">
-                                            <?php if(date('Y-m-d') == $message->tanggal) { 
-                                                echo date('h:i A', strtotime($message->jam));
-                                            }
-                                            else {
-                                                echo date('d-M-Y h:i A', strtotime($message->tanggal.' '.$message->jam));
-                                            }
-                                            ?>
-                                        </p>
-                                    </div>
-                                </div>
-                                <p class="timeline-detail">
-                                    <?php echo $message->pesan?>
-                                    <?php if ($message->gambar != "nothing") { ?>
-                                    <img src="<?php echo $message->gambar?>" width="659" height="581" alt="Go Pray Circle Picture" class="img-responsive">
-                                    <?php } ?>
-                                </p>
-                            </div>
-                            <?php } ?>
-                            </div>
+                            <div id="messageContainer"> </div>
                         </div>
                         
                         <div class="col-sm-4 col-md-3 detail-rightmenu hidden-xs">
@@ -322,11 +292,55 @@
         
         <!-- Javascript -->
         <script type="text/javascript">
-            var jsonMessage = <?php echo json_encode($data_message)?>;
-            // console.log(jsonMessage);
-            loadMessage(jsonMessage);
+            var listMessage = <?php echo json_encode($data_message)?>;
 
             function loadMessage(jsonData) {
+                console.log(jsonData);
+                var html = '<p class="text-center text-muted">Tidak ada aktivitas</p>';
+                var time = '';
+                var gambar = '';
+                if(jsonData.length > 0) {
+                    html = '';
+                    $.each(jsonData, function(i) {
+                        if (jsonData[i].tanggal == "<?php echo date('Y-m-d')?>") {
+                            time = timeFormatter(jsonData[i].tanggal+ ' ' +jsonData[i].jam);
+                        } else {
+                            var date = new Date(jsonData[i].tanggal);
+                            var tanggal = date.getDate() 
+                                +'-'+ ((date.getMonth() < 10 ? '0' : '') + date.getMonth()) 
+                                +'-'+ date.getFullYear();
+                            time = tanggal + ' ' + (timeFormatter(jsonData[i].tanggal+ ' ' +jsonData[i].jam));
+                        }
+
+                        if(jsonData[i].gambar != 'nothing') {
+                            gambar = '<img src="'+ jsonData[i].gambar +'" width="659" height="581" alt="Go Pray Circle Picture" class="img-responsive">';
+                        } else { 
+                            gambar = '';
+                        }
+
+                        html = '<div class="panel panel-default panel-timeline circle-timeline">'
+                                + '<div class="media media-timeline">'
+                                    + '<div class="media-left">'
+                                        + '<a href="#">'
+                                            + '<img class="media-object messageImg" src="'+ jsonData[i].kerabat.foto +'" onerror="imageLoadError(this);" width="50" height="50" alt="Go Pray User Photo Profile">'
+                                        + '</a>'
+                                    + '</div>'
+                                    + '<div class="media-body">'
+                                        + '<h4 class="media-heading">'+ jsonData[i].kerabat.nama +'</h4>'
+                                        + '<p class="media-time">'+ time +'</p>'
+                                    + '</div>'
+                                + '</div>'
+                                + '<p class="timeline-detail">'
+                                    + jsonData[i].pesan
+                                    + gambar
+                                + '</p>'
+                            + '</div>';
+
+                        $(html).hide().appendTo('#messageContainer').slideDown('slow').delay('1000');
+                    });
+                    // console.log('appendData.length: '+jsonData.length);
+                    // console.log($('#messageContainer > div').length);
+                }
             }
 
             function imageLoadError(elem) {
@@ -338,6 +352,34 @@
         <!-- Dial Panel Toggle Button -->
         <script type="text/javascript">
             $(document).ready(function() {
+                //first fill timeline
+                var firstLoad = listMessage.slice(0, 10);
+                loadMessage(firstLoad);
+
+                //initializing lazyload for timeline
+                var $container = $("#messageContainer");
+                var dataLength = listMessage.length; // numbers of initial data length
+                // console.log('dataLength = '+dataLength);
+
+                $(window).lazyScrollLoading({
+                    onScrollToBottom : function(e, $lazyItems) {
+                        var appendData = [];
+                        var toLoad = 10; // numbers of data to load
+                        var loadedLength = $('#messageContainer > div').length; //numbers of loaded data
+                        // console.log('loadedLength = '+loadedLength);
+
+                        if((dataLength - loadedLength) < toLoad) {
+                            toLoad = (dataLength - loadedLength);
+                        }
+                        for(i=loadedLength; i<(loadedLength + toLoad);  i++) {
+                            // console.log(i + '<br>');
+                            appendData.push(listMessage[i]);
+                        }
+                        // $container.append($("<li>New Lazy Item</li>"));
+                        loadMessage(appendData);
+                    }
+                });
+
                 var action = 1;
                 $("[data-toggle=offcanvas]").on("click", viewSomething);
                 function viewSomething() {
@@ -520,7 +562,7 @@
                                         }
                                 html += '</div>';
                             
-                            $(html).hide().prependTo('#circleTimeline').slideDown('slow');
+                            $(html).hide().prependTo('#messageContainer').slideDown('slow');
                         } else {
                             console.log('Gagal mengambil data message!');
                         }
