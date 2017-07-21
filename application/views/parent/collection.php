@@ -303,9 +303,9 @@
                 var nama = $('#btnTrophy').text();
                 if(jsonData.length > 0) {
                     
-                    if(jsonData[1].point > 500) {
-                        trophy = '<span class="trophyName">'+ nama +'</span> telah mendapatkan '+ jsonData[1].color +' trophy';
-                        imgSrc = "<?php echo URL_IMG?>" + 'icons/trophy1-'+ jsonData[1].color +'.png';
+                    if(jsonData[0].point > 500) {
+                        trophy = '<span class="trophyName">'+ nama +'</span> telah mendapatkan '+ jsonData[0].color +' trophy';
+                        imgSrc = "<?php echo URL_IMG?>" + 'icons/trophy1-'+ jsonData[0].color +'.png';
                     }
                     else {
                         trophy = '<span class="trophyName">'+ nama +'</span> belum mendapatkan trophy';

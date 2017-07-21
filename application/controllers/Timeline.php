@@ -7,11 +7,7 @@ class Timeline extends CI_Controller {
 	public function __construct() {
         parent::__construct();
         $this->load->helper('encrypt_helper');
-        if(!isset($_SESSION['access_token'])) {
-        	if(empty($_SESSION['access_token'])) {
-        		redirect("signin");
-        	}
-        }
+        $this->load->helper('user_auth_helper');
     }
 
     public function index() {

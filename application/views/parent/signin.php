@@ -39,7 +39,7 @@
                 <div class="col-md-5 form-sign-in">
                     <ul class="nav nav-pills front-tabs">
                         <li role="presentation">
-                            <a href="#">Sign Up</a>
+                            <a href="<?php echo base_url()?>signup">Sign Up</a>
                         </li>
                         <li role="presentation" class="active">
                             <a href="#">Sign In</a>

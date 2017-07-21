@@ -7,6 +7,7 @@ class Sticker extends CI_Controller {
 	public function __construct() {
         parent::__construct();
         $this->load->helper('encrypt_helper');
+        $this->load->helper('user_auth_helper');
     }
 
     public function index() {

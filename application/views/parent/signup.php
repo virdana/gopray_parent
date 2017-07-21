@@ -39,7 +39,7 @@
                             <a href="#">Sign Up</a>
                         </li>
                         <li role="presentation">
-                            <a href="#">Sign In</a>
+                            <a href="<?php echo base_url()?>signin">Sign In</a>
                         </li>
                     </ul>
                     <form name="formSignup" id="formSignup" method="POST" action="<?php echo base_url()?>signup/do_signup" class="front-form">
