@@ -151,7 +151,7 @@
                             <div class="trophy-btn text-right">
                                 <div class="btn-group user-menu">
                                     <button type="button" id="btnTrophy" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-user"></i> <span id="btnTrophyText">Pilih Akun</span> <span class="fa fa-angle-down"></span>
+                                        <i class="fa fa-user"></i> <span id="btnTrophyText">Pilih kerabat</span> <span class="fa fa-angle-down"></span>
                                     </button>
                                     <ul id="selectTrophy" class="dropdown-menu">
                                         <?php foreach($data_kerabat as $kerabat) { ?>
@@ -318,7 +318,7 @@
                     $.each(jsonData, function(i) {
                         html += '<tr>'
                                     + '<td>'+ jsonData[i].month +'</td>'
-                                    + '<td class="trophy-icon"><span class="table-trophy '+jsonData[i].color+'-trophy"></span></td>'
+                                    + '<td class="trophy-icon"><span class="table-trophy '+jsonData[i].color+'-trophy" title="'+jsonData[i].color+'"></span></td>'
                                     + '<td>'+ jsonData[i].point +'</td>'
                                 + '</tr>';
                     });

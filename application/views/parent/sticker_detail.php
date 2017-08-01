@@ -3,6 +3,14 @@
     <?php include "head.php" ?>
 
     <body>
+        <?php 
+            /*echo "<pre>";
+            print_r ($data_parent);
+            echo "</pre>";
+            echo "<pre>";
+            print_r ($selected_sticker);
+            echo "</pre>";*/
+        ?>
         <div class="admin-container animated right">
             
             <header class="admin-header">
@@ -157,7 +165,8 @@
                                             Rp <?php echo number_format($selected_sticker->harga, 0, ',', '.')?>
                                         </p>
                                         <a href="<?php echo base_url('sticker');?>" class="btn btn-round-white">Batal</a>
-                                        <a href="#" class="btn btn-round-green" data-toggle="modal" data-target="#buyModal">Beli</a>
+                                        <!-- <a href="#" class="btn btn-round-green" data-toggle="modal" data-target="#buyModal">Beli</a> -->
+                                        <button type="button" class="btn btn-round-green" data-id="<?php echo $selected_sticker->id_stiker?>" onclick="buySticker(event);">Beli</button>
                                     </div>
                                 </div>
                                 
@@ -370,6 +379,34 @@
                                     <?php } ?>
                                 </ul>
                             </div>
+
+                            <div class="hidden" style="display: none;">
+                                <form id="myShortCartForm" action="https://apps.myshortcart.com/payment/request-payment/" method="post">
+                                    <input type=text name="BASKET" value="<?php echo BASKET ?>">
+                                    <input type=text name="STOREID" value="<?php echo STOREID ?>"> 
+                                    <input type=text name="TRANSIDMERCHANT" value="<?php echo TRANSIDMERCHANT ?>">
+                                    <input type=text name="AMOUNT" value="<?php echo AMOUNT ?>">
+                                    <input type=text name="URL" value="http://www.gopray.id/ ">
+                                    <input type=text name="WORDS" value="<?php echo WORDS  ?>">
+                                    <input type=text name="CNAME" value="<?php echo $payment_data['cname'] ?>">
+                                    <input type=text name="CEMAIL" value="<?php echo $payment_data['cemail'] ?>">
+                                    <input type=text name="CWPHONE" value="">
+                                    <input type=text name="CHPHONE" value=""> 
+                                    <input type=text name="CMPHONE" value="<?php echo $payment_data['cmphone'] ?>">
+                                    <input type=text name="CADDRESS" value="">
+                                    <input type=text name="CZIPCODE" value="">
+                                    <input type=text name="BIRTHDATE" value="">
+                                    <input type=text name="CCITY" value="">
+                                    <input type=text name="CSTATE" value="">
+                                    <input type=text name="CCOUNTRY" value="">
+                                    <input type=text name="SADDRESS" value="">
+                                    <input type=text name="SZIPCODE" value="">
+                                    <input type=text name="SCITY" value="">
+                                    <input type=text name="SSTATE" value="">
+                                    <input type=text name="SCOUNTRY" value="">
+                                </form>
+                            </div>
+
                         </div>
                     </div>
                 </section>
@@ -465,6 +502,21 @@
                         alert("Please select an option!");
                    }    
            });
+
+           /*function buySticker(elem) (OLD){
+                elem.preventDefault();
+                
+                var data = {"id_stiker" : $(elem.currentTarget).data('id')};
+
+                $.post("<?php echo base_url()?>"+"/sticker/buy", data).done(function(response) {
+                        console.log(response);
+                }, "json");
+           }*/
+
+           function buySticker(elem) {
+            elem.preventDefault();
+            $('#myShortCartForm').submit();
+           }
         </script>
         
     </body>

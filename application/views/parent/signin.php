@@ -100,7 +100,7 @@
                             $.alert({
                                 theme: 'bootstrap',
                                 type: 'green',
-                                title: 'Perhatian!',
+                                title: 'Berhasil!',
                                 content: response.message,
                                 autoClose: 'ok|1000',
                                 buttons: {
@@ -117,7 +117,7 @@
                             $.alert({
                                 theme: 'bootstrap',
                                 type: 'red',
-                                title: 'Perhatian!',
+                                title: 'Gagal!',
                                 content: response.message,
                                 autoClose: 'ok|4000',
                                 buttons: {

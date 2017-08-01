@@ -110,6 +110,8 @@ ul{
 }
 .btn-round-green:focus,
 .btn-round-green:hover{
+    background: #009688;
+    border: 1px solid #009688;
     color: #fff;
     outline: none;
 }
@@ -136,16 +138,17 @@ ul{
     border: 1px solid #20C27B;
     width: 125px;
 }
-.btn-round-green:focus,
-.btn-round-green:hover{
-    color: #20C27B;
+.btn-round-white:focus,
+.btn-round-white:hover{
+    border: 1px solid #009688;
+    color: #009688;
     outline: none;
 }
-.btn-round-green:focus,
-.btn-round-green:active:focus,
-.btn-round-green.active:focus,
-.btn-round-green.focus,
-.btn-round-green:active.focus, .btn-green.active.focus {
+.btn-round-white:focus,
+.btn-round-white:active:focus,
+.btn-round-white.active:focus,
+.btn-round-white.focus,
+.btn-round-white:active.focus, .btn-white.active.focus {
     outline: none;
     outline-offset: 0;
 }
@@ -1414,6 +1417,11 @@ ul{
 }
 .table-trophy.platinum-trophy{
     background: url(../images/icons/trophy-platinum.png);
+    background-size: 31px 31px;
+    background-position: center center;
+}
+.table-trophy.none-trophy{
+    background: url(../images/icons/trophy-none.png);
     background-size: 31px 31px;
     background-position: center center;
 }

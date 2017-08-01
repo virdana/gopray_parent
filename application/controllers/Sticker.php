@@ -68,7 +68,87 @@ class Sticker extends CI_Controller {
         }
         $data['selected_sticker'] = $selected_sticker;
         $data['list_stickers'] = $stickers;
+        $id_stiker = $selected_sticker->id_stiker;
+        $qty = 1;
+        $subtotal = $selected_sticker->harga * $qty;
+        $basket = $selected_sticker->nama_stiker.', '
+                    .$selected_sticker->harga.'.00, '
+                    .$qty.', '
+                    .$subtotal.'.00 ';
+
+        //Doku Payment Params
+        define('BASKET', $basket);
+        define('SHARED_KEY', 'S7c3q2E8S7T7');
+        define('STOREID', '10783684');
+        define('TRANSIDMERCHANT', date('ynj').$id_stiker.date('Gis'));
+        define('AMOUNT', ($selected_sticker->harga * $qty).'.00');
+        define('WORDS', sha1(AMOUNT.SHARED_KEY.TRANSIDMERCHANT));
+        
+
+        $data['payment_data'] = array(
+                'cname' => $data['data_parent']->nama,
+                'cemail' => $data['data_parent']->email,
+                'cmphone' => $data['data_parent']->no_hp
+            );
+
         $this->load->view('parent/sticker_detail', $data);
+    }
+
+    public function buy() { /*THIS METHOD IS NOT USED. FOR TESTING PURPOSE ONLY*/
+        $params = $this->input->post();
+        $id_stiker = $params['id_stiker'];
+        $selected_sticker = array();
+
+        if(!empty($id_stiker)) {
+
+            $active_token = warpmc_decrypt($_SESSION['access_token'], WARP_ENC_KEY);
+            $data_user = $this->get_parent_info($active_token);
+            
+            define('SHARED_KEY', 'S7c3q2E8S7T7');
+            define('STOREID', '10783684');
+            define('TRANSIDMERCHANT', date('ynj').$id_stiker.date('Gis'));
+
+            $list_stiker = $this->get_stickers($active_token);
+            // print_r($list_stiker); die();
+            foreach ($list_stiker as $stiker) {
+                if($id_stiker == $stiker->id_stiker) {
+                    $selected_sticker = $stiker;
+                }
+            }
+
+            $amount = $selected_sticker->harga.'.00';
+            $words = sha1($amount.SHARED_KEY.TRANSIDMERCHANT);
+
+            $action = "https://apps.myshortcart.com/payment/request-payment/";
+            $payment_data = array(
+                "BASKET"            => $selected_sticker->nama_stiker.', '
+                                        .$selected_sticker->harga.'.00, '
+                                        .'1, '
+                                        .$selected_sticker->nama_stiker.'.00 ',
+                "STOREID"           => STOREID,
+                "TRANSIDMERCHANT"   => TRANSIDMERCHANT,
+                "AMOUNT"            => $amount,
+                "URL"               => 'http://gopray.id/',
+                "WORDS"             => $words,
+
+                "CNAME"             => $data_user->nama,
+                "CEMAIL"            => $data_user->email,
+                "CWPHONE"           => $data_user->no_hp,
+                "CHPHONE"           => $data_user->no_hp,
+                "CMPHONE"           => $data_user->no_hp,
+                "CCAPHONE"          => $data_user->no_hp,
+                "CADDRESS"          => '',
+                "CZIPCODE"          => '',
+                "SADDRESS"          => '',
+                "SZIPCODE"          => '',
+                "SCITY"             => '',
+                "SSTATE"            => '',
+                "SCOUNTRY"          => '',
+                "BIRTHDATE"         => '',
+            );
+
+            $result = $this->get_contents($active_token, $action, $payment_data, 'POST');
+        }
     }
 
     private function get_contents($active_token='', $url='', $parameters='', $method='GET') {

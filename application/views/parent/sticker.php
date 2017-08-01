@@ -233,7 +233,7 @@
                         if(data[i] != null) {
                         html += '<li class="sticker-item">'
                                 + '<div class="img-sticker">'
-                                    + '<img src="'+data[i]['cover']+'" width="150" height="150" alt="Sticker Icon" class="img-responsive">'
+                                    + '<a href="<?php echo base_url()?>sticker/detail?nama='+encodeURIComponent(data[i]['nama'])+'" class="sticker-name"><img src="'+data[i]['cover']+'" width="150" height="150" alt="Sticker Icon" class="img-responsive"></a>'
                                     + '</div>'
                                 + '<a href="<?php echo base_url()?>sticker/detail?nama='+encodeURIComponent(data[i]['nama'])+'" class="sticker-name">'+data[i]['nama']+'</a>'
                             + '</li>';
