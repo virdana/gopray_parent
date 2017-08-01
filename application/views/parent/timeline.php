@@ -302,7 +302,7 @@
                                         + '</a>'
                                     + '</div>'
                                     + '<div class="media-body">'
-                                        + '<h4 class="media-heading">'+ jsonData[i].info +'</h4>'
+                                        + jsonData[i].info
                                         + '<p class="media-time">'+ jsonData[i].time +'</p>'
                                     + '</div>'
                                 + '</div>'

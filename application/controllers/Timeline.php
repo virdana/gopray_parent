@@ -16,31 +16,53 @@ class Timeline extends CI_Controller {
     	if(!empty($_SESSION['access_token'])) {
     		$active_token = warpmc_decrypt($_SESSION['access_token'], WARP_ENC_KEY);
 
-    		//fetching data timeline
+            $jenis_sholat = ['Sholat Subuh', 'Sholat Dhuhur', 'Sholat Ashar', 'Sholat Maghrib', 'Sholat Isya', 'Sholat Sunnah'];
+
+            //fetching data timeline
     		$data_timeline = $this->get_timeline($active_token);
     		$list_timeline = array();
 
     		foreach ($data_timeline as $item) {
     			$info = '';
-    			$info .= $item->nama_user;
-    			if($item->nama_ibadah != 'nothing') {
-    				if($item->nama_ibadah == 'Sedekah') {
-    					$info .= ' melakukan ibadah '.$item->nama_ibadah;
-    					if($item->nominal != 'nothing') {
-    						$info .= ' Sebesar Rp '.number_format($item->nominal, 0, ',', '.');
-    					}
-    				} else {
-    					$info .= ' melakukan ibadah '.$item->nama_ibadah;
-    					if($item->bersama != 'nothing'){
-    						$info .= ' '.$item->bersama;
-    					}
-    				}
-    			}
-    			if($item->tempat != 'nothing') {
-    				$info .= ' di '.$item->tempat;
-    			}
 
-    			$profile_img = ($item->foto_user != 'null') ? $item->foto_user : URL_IMG.'logo-go-pray.png'; 
+                switch ($item->id_aktivitas) {
+                    case '1': //Doa
+                    case '2': //Puasa
+                    case '3': //Sholat
+                    case '4': //Sedekah
+                    case '7': //Mengaji
+                        $info .= '<h4 class="media-heading">';
+                        $info .= $item->nama_user;
+                        if($item->nama_ibadah != 'nothing') {
+                            if($item->nama_ibadah == 'Sedekah') {
+                                $info .= ' melakukan ibadah '.$item->nama_ibadah;
+                                if($item->nominal != 'nothing') {
+                                    $info .= ' Sebesar Rp '.number_format($item->nominal, 0, ',', '.');
+                                }
+                            } else {
+                                $info .= ' melakukan ibadah '.$jenis_sholat[($item->id_ibadah - 1)];
+                                if($item->bersama != 'nothing'){
+                                    $info .= ' bersama '.$item->bersama;
+                                }
+                            }
+                        }
+                        if($item->tempat != 'nothing') {
+                            $info .= ' di '.$item->tempat;
+                        }
+                        $info .= '</h4>';
+                    break;
+
+                    case '5': //FreeText
+                        $info .= '<h4 class="media-heading">'.$item->image.'</h4>';
+                    break;
+
+                    case '6': //Stiker
+                        $timeline_img = ($item->image == 'tanpa gambar' || $item->image == 'nothing') ? URL_IMG.'logo-go-pray.png' : $item->image;
+                        $info = '<img src="'.$timeline_img.'" class="img-responsive"/>';
+                    break;
+                }
+
+                $profile_img = ($item->foto_user != 'null') ? $item->foto_user : URL_IMG.'logo-go-pray.png'; 
 
     			$list_timeline[] = array(
     					'foto' => $profile_img,
@@ -63,11 +85,12 @@ class Timeline extends CI_Controller {
     			);
 
 
-    		/*echo "<pre>";
-            print_r($data['data_parent']);
-    		echo "</pre>";*/
-            /*echo $json_obj;
-            echo "<br>";
+    		// echo "<pre>";
+      //       print_r($data_timeline);
+    		// echo "</pre>";
+
+            // echo $json_obj;
+            /*echo "<br>";
             print_r($data['data_kerabat']);*/
     	}
     	else {
